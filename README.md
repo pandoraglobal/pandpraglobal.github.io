@@ -1,1 +1,1 @@
-# pandpraglobal.github.io
+# pandoraglobal.github.io
