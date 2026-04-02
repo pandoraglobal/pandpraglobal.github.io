@@ -2,344 +2,320 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>대한민국 보물지도 | Korea Treasure Map V10</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>대한민국 보물지도 V11</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#D4AF37;--gold-l:#F5D060;--gold-d:#8B6914;--red:#8B1A1A;--ink:#0D0805;--parch:#F4E8C1;--jade:#2E7D5A;--jade-l:#4CAF80}
+:root{--gold:#D4AF37;--gold-l:#F5D060;--gold-d:#8B6914;--red:#8B1A1A;--ink:#0D0805;--parch:#F4E8C1;--jade:#2E7D5A;--jade-l:#4CAF80;--touch:56px;--fs-big:19px;--fs-mid:16px;--fs-sm:14px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch);min-height:100vh;overflow-x:hidden}
+html,body{height:100%}
+body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch);overflow-x:hidden}
 .screen{display:none;width:100%;min-height:100vh;flex-direction:column}
 .screen.active{display:flex}
-
-/* ─ SPLASH ─ */
-#splash{background:radial-gradient(ellipse at center,#1a0f00,#0D0805);align-items:center;justify-content:center;overflow:hidden}
-.mgrid{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(0deg,transparent,transparent 50px,var(--gold) 50px,var(--gold) 51px),repeating-linear-gradient(90deg,transparent,transparent 50px,var(--gold) 50px,var(--gold) 51px)}
-.sc{position:relative;z-index:10;text-align:center;animation:fadeUp 1.4s ease-out}
+/* SPLASH */
+#splash{background:radial-gradient(ellipse at center,#1a0f00,#0D0805);align-items:center;justify-content:center;min-height:100vh}
+.mgrid{position:fixed;inset:0;opacity:.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 50px,var(--gold) 50px,var(--gold) 51px),repeating-linear-gradient(90deg,transparent,transparent 50px,var(--gold) 50px,var(--gold) 51px);pointer-events:none}
+.sc{position:relative;z-index:10;text-align:center;animation:fadeUp 1.4s ease-out;padding:20px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px) scale(.85)}to{opacity:1;transform:none}}
-.stone{width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#3a2a0a,#1a0f00);border:3px solid var(--gold-d);box-shadow:0 0 80px rgba(212,175,55,.35),inset 0 0 50px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;animation:stoneP 4s ease-in-out infinite}
+.stone{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#3a2a0a,#1a0f00);border:3px solid var(--gold-d);box-shadow:0 0 80px rgba(212,175,55,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:stoneP 4s ease-in-out infinite}
 @keyframes stoneP{0%,100%{box-shadow:0 0 80px rgba(212,175,55,.35)}50%{box-shadow:0 0 120px rgba(212,175,55,.6)}}
-.tgg{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:32px}
+.tgg{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:28px}
 .tg{display:flex;flex-direction:column;gap:3px;align-items:center}
-.tls{display:flex;flex-direction:column;gap:3px;width:38px}
+.tls{display:flex;flex-direction:column;gap:3px;width:36px}
 .tl{height:5px;border-radius:2px;background:var(--gold);box-shadow:0 0 8px var(--gold)}
 .tl.b{background:transparent;position:relative}
-.tl.b::before,.tl.b::after{content:'';position:absolute;top:0;height:100%;width:43%;background:var(--gold);border-radius:2px;box-shadow:0 0 8px var(--gold)}
+.tl.b::before,.tl.b::after{content:'';position:absolute;top:0;height:100%;width:43%;background:var(--gold);border-radius:2px}
 .tl.b::before{left:0}.tl.b::after{right:0}
-.tll{font-size:8px;color:var(--gold-l);opacity:.6;margin-top:2px}
+.tll{font-size:9px;color:var(--gold-l);opacity:.6;margin-top:2px}
 .tg:nth-child(1) .tls{animation:tgG 4s ease-in-out infinite}
 .tg:nth-child(2) .tls{animation:tgG 4s 1s ease-in-out infinite}
 .tg:nth-child(3) .tls{animation:tgG 4s 2s ease-in-out infinite}
 .tg:nth-child(4) .tls{animation:tgG 4s 3s ease-in-out infinite}
 @keyframes tgG{0%,100%{filter:brightness(1)}50%{filter:brightness(2.2) drop-shadow(0 0 10px var(--gold))}}
-.st{font-family:'Noto Serif KR',serif;font-size:25px;font-weight:900;color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,.7);letter-spacing:2px;line-height:1.4;margin-bottom:3px}
-.ss{font-size:10px;color:var(--parch);opacity:.4;letter-spacing:5px;margin-bottom:5px}
-.sj{font-size:12px;color:rgba(244,232,193,.6);margin-bottom:32px}
-.btnS{background:linear-gradient(135deg,#8B1A1A,#5a0f0f);border:2px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;padding:16px 48px;border-radius:4px;cursor:pointer;box-shadow:0 0 40px rgba(139,26,26,.6);transition:.3s;letter-spacing:2px}
-.btnS:hover{transform:scale(1.04);box-shadow:0 0 60px rgba(212,175,55,.5)}
-.pt{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:pd 6s ease-in-out infinite}
-@keyframes pd{0%{opacity:0;transform:translateY(10px)}30%{opacity:.9}100%{opacity:0;transform:translateY(-80px)}}
-
-/* ─ COMMON ─ */
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(13,8,5,.96);border-top:1px solid rgba(212,175,55,.22);display:flex;z-index:100;height:60px;backdrop-filter:blur(12px)}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(212,175,55,.32);font-size:9px;cursor:pointer;transition:.3s;border:none;background:none;padding:4px 0}
-.nb.on{color:var(--gold)}
-.nb svg{width:20px;height:20px}
-.nb.on svg{filter:drop-shadow(0 0 6px var(--gold))}
-.ph{background:rgba(13,8,5,.9);border-bottom:1px solid rgba(212,175,55,.18);padding:12px 16px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(10px)}
-.ph h2{font-family:'Noto Serif KR',serif;font-size:15px;color:var(--gold);font-weight:700}
-.bk{width:30px;height:30px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:14px;flex-shrink:0}
-.lb{margin-left:auto;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.28);color:var(--gold-l);font-size:10px;padding:3px 8px;border-radius:10px;cursor:pointer}
-
-/* ─ AI Q&A ─ */
-#ai{background:linear-gradient(180deg,#0D0805,#1a0f00);padding-bottom:80px}
-.ah{padding:20px 16px 12px;text-align:center}
-.ah h2{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--gold);margin-bottom:5px}
-.ah p{font-size:11px;color:rgba(244,232,193,.5);line-height:1.6}
-.qs{padding:0 16px;display:flex;flex-direction:column;gap:9px}
-.qc{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.13);border-radius:11px;padding:14px;transition:.3s}
-.qc.act{border-color:var(--gold);background:rgba(212,175,55,.1)}
-.qn{font-size:9px;color:var(--gold-d);margin-bottom:5px;font-weight:700;letter-spacing:.8px}
-.qq{font-size:13px;color:var(--parch);font-weight:700;margin-bottom:3px;line-height:1.5}
-.qj{font-size:10px;color:rgba(244,232,193,.45);margin-bottom:9px;line-height:1.5}
-.og{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.ob{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.18);color:var(--parch);font-size:12px;padding:9px 6px;border-radius:8px;cursor:pointer;transition:.3s;text-align:center;line-height:1.4}
-.ob:hover,.ob.sel{background:rgba(212,175,55,.18);border-color:var(--gold);color:var(--gold-l)}
+.splash-title{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:900;color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,.7);letter-spacing:2px;line-height:1.4;margin-bottom:4px}
+.splash-sub{font-size:11px;color:rgba(244,232,193,.4);letter-spacing:4px;margin-bottom:5px}
+.splash-jp{font-size:13px;color:rgba(244,232,193,.6);margin-bottom:28px}
+.btn-start{background:linear-gradient(135deg,#8B1A1A,#5a0f0f);border:3px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;padding:20px 52px;border-radius:50px;cursor:pointer;box-shadow:0 0 40px rgba(139,26,26,.6);transition:.3s;letter-spacing:2px;min-height:var(--touch);display:block;margin:0 auto}
+.btn-start:active{transform:scale(.97)}
+/* HEADER */
+.ph{background:rgba(13,8,5,.95);border-bottom:2px solid rgba(212,175,55,.3);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;position:sticky;top:0;z-index:50}
+.ph h2{font-family:'Noto Serif KR',serif;font-size:var(--fs-big);color:var(--gold);font-weight:700}
+.bk{width:var(--touch);height:var(--touch);background:rgba(212,175,55,.15);border:2px solid rgba(212,175,55,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:22px;flex-shrink:0}
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(13,8,5,.97);border-top:2px solid rgba(212,175,55,.3);display:flex;z-index:100;height:70px}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:rgba(212,175,55,.32);font-size:11px;cursor:pointer;transition:.3s;border:none;background:none;min-height:var(--touch)}
+.nb.on{color:var(--gold)}.nb svg{width:24px;height:24px}.nb.on svg{filter:drop-shadow(0 0 6px var(--gold))}
+/* AI */
+#ai{background:linear-gradient(180deg,#0D0805,#1a0f00);padding-bottom:90px;overflow-y:auto}
+.ah{padding:24px 18px 16px;text-align:center}
+.ah h2{font-family:'Noto Serif KR',serif;font-size:22px;color:var(--gold);margin-bottom:8px;line-height:1.4}
+.ah p{font-size:var(--fs-sm);color:rgba(244,232,193,.55);line-height:1.7}
+.qc{background:rgba(212,175,55,.05);border:2px solid rgba(212,175,55,.15);border-radius:16px;padding:18px;margin:0 16px 14px;transition:.3s}
+.qc.act{border-color:var(--gold);background:rgba(212,175,55,.1);box-shadow:0 0 20px rgba(212,175,55,.15)}
+.qn{font-size:12px;color:var(--gold-d);margin-bottom:8px;font-weight:700;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
+.qnc{width:26px;height:26px;border-radius:50%;background:var(--gold-d);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.qq{font-size:var(--fs-big);color:var(--parch);font-weight:700;margin-bottom:5px;line-height:1.5}
+.qj{font-size:13px;color:rgba(244,232,193,.5);margin-bottom:14px;line-height:1.6}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob{background:rgba(255,255,255,.06);border:2px solid rgba(212,175,55,.25);color:var(--parch);font-size:var(--fs-mid);padding:16px 10px;border-radius:14px;cursor:pointer;transition:.3s;text-align:center;line-height:1.5;min-height:var(--touch)}
+.ob:active,.ob.sel{background:rgba(212,175,55,.22);border-color:var(--gold);color:var(--gold-l)}
+.ob.sel{box-shadow:0 0 14px rgba(212,175,55,.25)}
+.ob-m.sel::after{content:' ✓';color:var(--jade-l)}
 .of{grid-column:1/-1}
-.bn{display:block;margin:16px 16px 0;background:linear-gradient(135deg,var(--red),#5a0f0f);border:2px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;padding:14px;border-radius:8px;cursor:pointer;text-align:center;letter-spacing:1px;transition:.3s}
-.bn:hover{box-shadow:0 0 28px rgba(212,175,55,.4)}
-
-/* ─ MAP ─ */
-#map{background:#0D0805;padding-bottom:80px}
-.jh{padding:11px 15px;background:rgba(13,8,5,.95);border-bottom:1px solid rgba(212,175,55,.18)}
-.jr{display:flex;align-items:center;gap:5px;font-size:10px;flex-wrap:wrap;margin-top:5px}
-.rn{background:rgba(212,175,55,.09);border:1px solid rgba(212,175,55,.28);color:var(--gold-l);padding:3px 8px;border-radius:9px;font-size:10px;font-weight:700}
+/* 도시 카드 */
+.city-grid{display:flex;flex-direction:column;gap:10px}
+.city-card{background:rgba(255,255,255,.05);border:2px solid rgba(212,175,55,.2);border-radius:16px;padding:16px;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+.city-card:active,.city-card.sel{border-color:var(--jade);background:rgba(76,175,128,.12)}
+.city-card.sel{box-shadow:0 0 16px rgba(76,175,128,.2)}
+.city-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.city-emoji{font-size:34px}
+.city-name{font-family:'Noto Serif KR',serif;font-size:20px;color:var(--gold-l);font-weight:700}
+.city-name-jp{font-size:12px;color:rgba(244,232,193,.5)}
+.city-tag{display:inline-block;font-size:11px;background:rgba(76,175,128,.2);border:1px solid rgba(76,175,128,.4);color:var(--jade-l);padding:3px 8px;border-radius:8px;margin:2px}
+.city-hook{font-size:var(--fs-sm);color:rgba(244,232,193,.75);line-height:1.6;margin-top:8px;font-style:italic;border-left:3px solid var(--gold-d);padding-left:10px}
+.city-badge{position:absolute;top:10px;right:10px;background:var(--red);border:1px solid var(--gold);color:var(--gold-l);font-size:10px;padding:3px 8px;border-radius:10px;font-weight:700}
+.city-badge.hot{animation:badgP 2s ease-in-out infinite}
+@keyframes badgP{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.4)}70%{box-shadow:0 0 0 6px rgba(212,175,55,0)}}
+.city-live{font-size:12px;color:var(--jade-l);margin-top:8px;display:flex;align-items:center;gap:5px;font-weight:700}
+.live-dot{width:8px;height:8px;background:#FF4444;border-radius:50%;animation:livD 1s ease-in-out infinite}
+@keyframes livD{0%,100%{opacity:1}50%{opacity:.3}}
+/* 추천 배너 */
+.rec-banner{background:linear-gradient(135deg,rgba(46,125,90,.2),rgba(76,175,128,.1));border:2px solid rgba(76,175,128,.5);border-radius:16px;padding:16px;margin:12px 0 0;display:none;animation:fadeUp .4s}
+.rec-banner.show{display:block}
+.rec-banner h4{font-size:var(--fs-mid);color:var(--jade-l);font-weight:700;margin-bottom:6px}
+.rec-banner p{font-size:var(--fs-sm);color:rgba(244,232,193,.7);line-height:1.7}
+/* 다음 버튼 */
+.bn{display:block;margin:4px 16px 0;background:linear-gradient(135deg,var(--red),#5a0f0f);border:3px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;padding:18px;border-radius:16px;cursor:pointer;text-align:center;letter-spacing:1px;transition:.3s;min-height:var(--touch)}
+.bn:active{transform:scale(.98)}
+/* MAP */
+#map{background:#0D0805;padding-bottom:80px;overflow-y:auto}
+.jh{padding:12px 16px;background:rgba(13,8,5,.95);border-bottom:2px solid rgba(212,175,55,.2);position:sticky;top:0;z-index:40}
+.jr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:5px}
+.rn{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);color:var(--gold-l);padding:4px 10px;border-radius:10px;font-size:12px;font-weight:700}
 .rn.mn{background:rgba(139,26,26,.3);border-color:var(--red)}
-.rn.tr{background:rgba(46,125,90,.22);border-color:var(--jade)}
-.ra{color:rgba(212,175,55,.3);font-size:9px}
-
-/* STAMP */
-.sc2{margin:9px 15px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:10px;padding:12px}
-.st2{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.sti{font-size:11px;color:var(--gold);font-weight:700}
-.stp{font-size:10px;color:var(--jade-l)}
-.sd{display:flex;gap:4px;flex-wrap:wrap}
-.dot{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;border:1.5px solid rgba(212,175,55,.22);color:rgba(212,175,55,.32);transition:.5s;flex-shrink:0}
-.dot.f{background:radial-gradient(circle,var(--gold-l),var(--gold));border-color:var(--gold);color:#0D0805;font-weight:900;box-shadow:0 0 8px rgba(212,175,55,.5);font-size:10px}
-.dot.g{background:radial-gradient(circle,#fff,var(--gold-l),var(--gold));box-shadow:0 0 14px rgba(212,175,55,.9);animation:gp 2s ease-in-out infinite;font-size:10px}
-@keyframes gp{0%,100%{box-shadow:0 0 14px rgba(212,175,55,.8)}50%{box-shadow:0 0 24px rgba(212,175,55,1)}}
+.rn.tr{background:rgba(46,125,90,.22);border-color:var(--jade);animation:rP 3s ease-in-out infinite}
+@keyframes rP{0%,100%{box-shadow:none}50%{box-shadow:0 0 10px rgba(76,175,128,.4)}}
+.ra{color:rgba(212,175,55,.3);font-size:10px}
+/* 현재 퀘스트 (크고 깜빡) */
+.quest-now{margin:12px 16px;background:linear-gradient(135deg,rgba(139,26,26,.4),rgba(90,15,15,.3));border:3px solid var(--gold);border-radius:20px;padding:18px;cursor:pointer;animation:qBlink 2s ease-in-out infinite}
+@keyframes qBlink{0%,100%{border-color:var(--gold);box-shadow:0 0 15px rgba(212,175,55,.3)}50%{border-color:var(--gold-l);box-shadow:0 0 35px rgba(212,175,55,.6)}}
+.qnow-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.qnow-dot{width:18px;height:18px;background:#FF4444;border-radius:50%;flex-shrink:0;animation:dotB 1s ease-in-out infinite;box-shadow:0 0 12px #FF4444}
+@keyframes dotB{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.qnow-title{font-size:20px;font-weight:900;color:var(--gold-l);font-family:'Noto Serif KR',serif}
+.qnow-body{font-size:var(--fs-mid);color:var(--parch);line-height:1.7;margin-bottom:10px}
+.qnow-timer{font-size:36px;font-weight:900;color:var(--jade-l);font-family:'Cinzel Decorative',serif;text-align:center;letter-spacing:3px;margin:8px 0}
+.qnow-bar{height:14px;background:rgba(255,255,255,.1);border-radius:7px;overflow:hidden;margin-top:6px}
+.qnow-fill{height:100%;background:linear-gradient(90deg,var(--jade),var(--jade-l));border-radius:7px;transition:width .5s}
+.qnow-hint{font-size:13px;color:rgba(244,232,193,.5);margin-top:8px;text-align:center}
+/* 스탬프 */
+.sc2{margin:0 16px 12px;background:rgba(212,175,55,.06);border:2px solid rgba(212,175,55,.25);border-radius:16px;padding:14px}
+.st2{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sti{font-size:var(--fs-mid);color:var(--gold);font-weight:700}
+.stp{font-size:var(--fs-sm);color:var(--jade-l);font-weight:700}
+.sd{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid rgba(212,175,55,.25);color:rgba(212,175,55,.35);flex-shrink:0}
+.dot.f{background:radial-gradient(circle,var(--gold-l),var(--gold));border-color:var(--gold);color:#0D0805;font-weight:900;box-shadow:0 0 10px rgba(212,175,55,.5)}
+.dot.g{background:radial-gradient(circle,#fff,var(--gold-l),var(--gold));box-shadow:0 0 16px rgba(212,175,55,.9);animation:gp 2s ease-in-out infinite}
+@keyframes gp{0%,100%{box-shadow:0 0 14px rgba(212,175,55,.8)}50%{box-shadow:0 0 28px rgba(212,175,55,1)}}
 .dot.bl{animation:bd 1.2s ease-in-out infinite}
-@keyframes bd{0%,100%{border-color:rgba(212,175,55,.22)}50%{border-color:var(--gold);box-shadow:0 0 7px var(--gold)}}
-
-/* MAP CONTAINER */
-.mc{margin:9px 15px;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.28);height:195px;position:relative}
-#gmap{width:100%;height:100%}
-.mld{position:absolute;inset:0;background:linear-gradient(135deg,#1a0f05,#0D0805);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:12px;color:var(--gold-l)}
-.man{position:absolute;top:6px;right:6px;background:rgba(13,8,5,.8);border:1px solid rgba(212,175,55,.32);border-radius:6px;padding:3px 7px;font-size:8px;color:var(--gold-l);z-index:5}
-
-/* SOCIAL */
-.sp{margin:0 15px 10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 13px}
-.spt{font-size:9px;color:rgba(244,232,193,.32);margin-bottom:6px;font-weight:700;letter-spacing:.8px}
-.spf{display:flex;flex-direction:column;gap:5px}
-.spi{display:flex;align-items:center;gap:7px;font-size:10px;color:rgba(244,232,193,.52)}
-.spd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.green{background:var(--jade-l)}.gld{background:var(--gold)}.red{background:#FF6B6B}
-.spc{margin-left:auto;font-size:9px;color:rgba(244,232,193,.32)}
-
-/* TRANSPORT */
-.tb{display:flex;gap:5px;padding:0 15px;margin-bottom:9px;overflow-x:auto}
-.trb{flex-shrink:0;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.16);color:rgba(244,232,193,.5);font-size:10px;padding:5px 9px;border-radius:16px;cursor:pointer;white-space:nowrap;transition:.3s}
-.trb.on{background:rgba(212,175,55,.14);border-color:var(--gold);color:var(--gold-l)}
-
-/* CASHBACK */
-.cb{margin:0 15px 10px;background:linear-gradient(135deg,rgba(46,125,90,.16),rgba(76,175,128,.07));border:1px solid rgba(76,175,128,.32);border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
-.cbi{font-size:21px}
-.cbt h4{font-size:11px;color:var(--jade-l);font-weight:700;margin-bottom:1px}
-.cbt p{font-size:9px;color:rgba(244,232,193,.42);line-height:1.4}
-.cbp{margin-left:auto;font-size:16px;font-weight:900;color:var(--jade-l);white-space:nowrap}
-
-/* COURSE */
-.cs{padding:0 15px}
-.stl{font-size:12px;color:var(--gold);font-weight:700;margin:13px 0 8px;display:flex;align-items:center;gap:7px}
-.stl::after{content:'';flex:1;height:1px;background:rgba(212,175,55,.16)}
-.cc{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.16);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:.25s}
-.cc:hover,.cc.v{border-color:rgba(212,175,55,.42);background:rgba(212,175,55,.07)}
-.ci{display:flex;gap:10px;padding:10px}
-.cim{width:55px;height:55px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,#2a1a0a,#1a0f00);display:flex;align-items:center;justify-content:center;font-size:21px}
+@keyframes bd{0%,100%{border-color:rgba(212,175,55,.25)}50%{border-color:var(--gold);box-shadow:0 0 10px var(--gold)}}
+/* 지도 */
+.map-container{margin:0 16px 12px;border-radius:16px;overflow:hidden;border:2px solid rgba(212,175,55,.35);position:relative}
+#gmap{width:100%;height:220px}
+.map-loading{position:absolute;inset:0;background:linear-gradient(135deg,#1a0f05,#0D0805);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:var(--fs-mid);color:var(--gold-l)}
+.map-api-note{position:absolute;top:8px;left:8px;background:rgba(13,8,5,.85);border:1px solid rgba(212,175,55,.35);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--gold-l);z-index:5}
+.map-expand-btn{position:absolute;bottom:10px;right:10px;width:50px;height:50px;background:rgba(13,8,5,.9);border:2px solid var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-size:24px}
+.map-myloc-btn{position:absolute;bottom:10px;left:10px;width:50px;height:50px;background:rgba(13,8,5,.9);border:2px solid var(--jade);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-size:24px;animation:locP 3s ease-in-out infinite}
+@keyframes locP{0%,100%{box-shadow:0 0 0 0 rgba(76,175,128,.5)}70%{box-shadow:0 0 0 10px rgba(76,175,128,0)}}
+/* 전체화면 지도 */
+.fs-map{position:fixed;inset:0;z-index:500;display:none;flex-direction:column;background:#0D0805}
+.fs-map.show{display:flex}
+.fs-header{background:rgba(13,8,5,.95);border-bottom:2px solid rgba(212,175,55,.3);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.fs-close{width:var(--touch);height:var(--touch);background:rgba(212,175,55,.15);border:2px solid rgba(212,175,55,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gold);font-size:22px;flex-shrink:0}
+#gmap-fs{width:100%;flex:1}
+/* 코스 카드 */
+.stl{font-size:var(--fs-mid);color:var(--gold);font-weight:700;margin:14px 16px 10px;display:flex;align-items:center;gap:8px}
+.stl::after{content:'';flex:1;height:2px;background:rgba(212,175,55,.2)}
+.cc{background:rgba(255,255,255,.05);border:2px solid rgba(212,175,55,.2);border-radius:16px;margin:0 16px 10px;cursor:pointer;transition:.25s;overflow:hidden}
+.cc:active,.cc.v{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.08)}
+.ci{display:flex;gap:12px;padding:14px}
+.cim{width:64px;height:64px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#2a1a0a,#1a0f00);display:flex;align-items:center;justify-content:center;font-size:28px}
 .cn2{flex:1;min-width:0}
-.cty{font-size:8px;color:var(--jade-l);font-weight:700;letter-spacing:.7px;margin-bottom:1px}
-.cna{font-size:12px;font-weight:700;color:var(--parch);margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cnj{font-size:9px;color:rgba(244,232,193,.42);margin-bottom:4px}
-.cts{display:flex;gap:3px;flex-wrap:wrap}
-.tag{font-size:8px;padding:1px 5px;border-radius:5px;border:1px solid}
-.tq{color:var(--gold);border-color:rgba(212,175,55,.38);background:rgba(212,175,55,.07)}
-.tf{color:#FF8C69;border-color:rgba(255,140,105,.38);background:rgba(255,140,105,.07)}
-.th{color:var(--jade-l);border-color:rgba(76,175,128,.38);background:rgba(76,175,128,.07)}
-.tc{color:#DA70D6;border-color:rgba(218,112,214,.32);background:rgba(218,112,214,.07)}
-.cst{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:5px}
-.sb{font-size:9px;padding:2px 6px;border-radius:6px;white-space:nowrap}
-.sd2{background:rgba(255,255,255,.05);color:rgba(244,232,193,.4);border:1px solid rgba(255,255,255,.08)}
-.sn{background:rgba(46,125,90,.2);color:var(--jade-l);border:1px solid rgba(76,175,128,.38);animation:np 2s infinite}
-@keyframes np{0%,100%{box-shadow:0 0 0 0 rgba(76,175,128,.4)}70%{box-shadow:0 0 0 5px rgba(76,175,128,0)}}
-.sk{background:rgba(212,175,55,.13);color:var(--gold-l);border:1px solid rgba(212,175,55,.28)}
-.tm{font-size:10px;color:var(--jade-l);font-weight:700}
-.tbar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:6px}
-.tf2{height:100%;background:linear-gradient(90deg,var(--jade),var(--jade-l));border-radius:3px;transition:width .5s}
-
-/* HINT MAP */
-.hm{margin:0 15px 10px;background:rgba(13,8,5,.9);border:2px solid rgba(212,175,55,.32);border-radius:10px;padding:13px;position:relative;overflow:hidden}
-.hfog{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 70%,transparent 30%,rgba(13,8,5,.85) 70%);pointer-events:none;z-index:2}
-.hpin{font-size:16px;position:absolute;animation:hp 2s ease-in-out infinite;z-index:3}
-@keyframes hp{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 5px var(--gold))}50%{transform:translateY(-4px) scale(1.1);filter:drop-shadow(0 0 12px var(--gold))}}
-.htl{font-family:'Noto Serif KR',serif;font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;position:relative;z-index:4}
-.hm2{font-size:10px;color:rgba(244,232,193,.5);line-height:1.6;position:relative;z-index:4}
-
-/* LIMITED CARDS */
-.lc{padding:0 15px;margin-bottom:11px}
-.lcg{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
-.lcc{flex-shrink:0;width:72px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.16);border-radius:9px;padding:7px;text-align:center;cursor:pointer;transition:.3s}
-.lcc.ow{border-color:var(--gold);background:rgba(212,175,55,.09)}
-.lcc.lk{opacity:.38}
-.lce{font-size:19px;margin-bottom:3px}
-.lcn{font-size:9px;color:var(--parch);font-weight:700;line-height:1.3}
-.lcr{font-size:8px;color:rgba(244,232,193,.32)}
-.lcch{text-align:center;padding:8px;font-size:10px;color:var(--jade-l);background:rgba(46,125,90,.07);border:1px solid rgba(76,175,128,.2);border-radius:8px;margin-top:6px}
-
-/* SEASON */
-.ss2{padding:0 15px;margin-bottom:12px}
-.stb{display:flex;gap:5px;margin-bottom:9px;overflow-x:auto}
-.stab{flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(244,232,193,.42);font-size:9px;padding:5px 9px;border-radius:13px;cursor:pointer;transition:.3s;white-space:nowrap}
-.stab.on{background:rgba(212,175,55,.12);border-color:var(--gold);color:var(--gold-l)}
-.sca{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.13);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center}
-.se{font-size:32px}.si h4{font-size:12px;color:var(--parch);font-weight:700;margin-bottom:2px}.si p{font-size:10px;color:rgba(244,232,193,.42);line-height:1.5}
-.sta{display:inline-block;font-size:8px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);color:var(--gold-l);padding:1px 5px;border-radius:5px;margin-right:3px;margin-top:3px}
-
-/* VOUCHER */
-.vb{margin:0 15px 10px;background:linear-gradient(135deg,rgba(212,175,55,.09),rgba(212,175,55,.04));border:1px solid rgba(212,175,55,.32);border-radius:10px;padding:12px 13px}
-.vbr{display:flex;align-items:center;gap:8px;margin-bottom:4px}.vbi{font-size:20px}.vbt{font-size:12px;color:var(--gold);font-weight:700}
-.vbn{font-size:9px;color:rgba(244,232,193,.42);margin-bottom:6px}
-.vbs{display:flex;gap:5px;flex-wrap:wrap}
-.vbsh{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px 7px;font-size:9px;color:var(--parch);display:flex;align-items:center;gap:3px}
-.ib{background:rgba(46,125,90,.25);border:1px solid rgba(76,175,128,.42);color:var(--jade-l);font-size:7px;padding:1px 4px;border-radius:3px;font-weight:700}
-
+.cty{font-size:12px;color:var(--jade-l);font-weight:700;margin-bottom:3px}
+.cna{font-size:var(--fs-mid);font-weight:700;color:var(--parch);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cnj{font-size:12px;color:rgba(244,232,193,.45);margin-bottom:5px}
+.cts{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 7px;border-radius:8px;border:1px solid}
+.tq{color:var(--gold);border-color:rgba(212,175,55,.4);background:rgba(212,175,55,.08)}
+.tf{color:#FF8C69;border-color:rgba(255,140,105,.4);background:rgba(255,140,105,.08)}
+.th{color:var(--jade-l);border-color:rgba(76,175,128,.4);background:rgba(76,175,128,.08)}
+.cst{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:6px}
+.sb{font-size:12px;padding:4px 8px;border-radius:8px;white-space:nowrap}
+.sd2{background:rgba(255,255,255,.06);color:rgba(244,232,193,.45);border:1px solid rgba(255,255,255,.1)}
+.sn{background:rgba(46,125,90,.25);color:var(--jade-l);border:2px solid rgba(76,175,128,.5);animation:np 2s infinite;font-weight:700}
+@keyframes np{0%,100%{box-shadow:0 0 0 0 rgba(76,175,128,.5)}70%{box-shadow:0 0 0 6px rgba(76,175,128,0)}}
+.sk{background:rgba(212,175,55,.15);color:var(--gold-l);border:1px solid rgba(212,175,55,.35)}
+.tm{font-size:var(--fs-sm);color:var(--jade-l);font-weight:700}
+/* 이동수단 */
+.tb{display:flex;gap:8px;padding:0 16px;margin-bottom:12px;overflow-x:auto}
+.trb{flex-shrink:0;background:rgba(255,255,255,.06);border:2px solid rgba(212,175,55,.2);color:rgba(244,232,193,.6);font-size:var(--fs-sm);padding:10px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;min-height:var(--touch);display:flex;align-items:center}
+.trb.on{background:rgba(212,175,55,.18);border-color:var(--gold);color:var(--gold-l)}
+/* 상품권 */
+.vb{margin:0 16px 12px;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.06));border:2px solid rgba(212,175,55,.4);border-radius:16px;padding:14px}
+.vbr{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.vbi{font-size:26px}.vbt{font-size:var(--fs-mid);color:var(--gold);font-weight:700}
+.vbn{font-size:var(--fs-sm);color:rgba(244,232,193,.5);margin-bottom:8px}
+.vbs{display:flex;gap:6px;flex-wrap:wrap}
+.vbsh{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;font-size:var(--fs-sm);color:var(--parch);display:flex;align-items:center;gap:4px}
+.ib{background:rgba(46,125,90,.3);border:1px solid rgba(76,175,128,.5);color:var(--jade-l);font-size:10px;padding:2px 5px;border-radius:4px;font-weight:700}
 /* SNS */
-.snb{margin:0 15px 11px;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.16);border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:10px}
-.snt{flex:1;font-size:10px;color:rgba(244,232,193,.52);line-height:1.5}
+.snb{margin:0 16px 12px;background:rgba(255,255,255,.04);border:2px solid rgba(212,175,55,.2);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px}
+.snt{flex:1;font-size:var(--fs-sm);color:rgba(244,232,193,.6);line-height:1.5}
 .snt strong{color:var(--jade-l)}
-.snbs{display:flex;gap:5px}
-.snbtn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:none;transition:.3s}
-.snbtn:hover{transform:scale(1.15)}
-.sl{background:#06C755}.sx{background:#000;border:1px solid #444}.si2{background:linear-gradient(135deg,#405DE6,#833AB4,#E1306C)}
-
+.snbs{display:flex;gap:8px}
+.snbtn{width:var(--touch);height:var(--touch);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;border:none}
+.sl{background:#06C755}.sx{background:#000;border:1px solid #555}.si2{background:linear-gradient(135deg,#405DE6,#833AB4,#E1306C)}
 /* INVENTORY */
-#inv{background:#0D0805;padding-bottom:80px}
-.is{margin:13px 15px;background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:15px;text-align:center}
-.ip{font-family:'Noto Serif KR',serif;font-size:32px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:2px}
-.il{font-size:10px;color:rgba(244,232,193,.42);margin-bottom:11px}
-.ib2{height:7px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-bottom:5px}
-.if{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l));border-radius:3px;width:64%;transition:width 1s}
-.in{font-size:10px;color:var(--jade-l)}
-.ib3{margin:0 15px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.eb{padding:12px;border-radius:9px;border:1px solid rgba(212,175,55,.26);background:rgba(212,175,55,.07);text-align:center;cursor:pointer;transition:.3s}
-.eb:hover{background:rgba(212,175,55,.15);border-color:var(--gold)}
-.ei{font-size:19px;margin-bottom:3px}.en{font-size:11px;color:var(--gold-l);font-weight:700;margin-bottom:2px}.ev{font-size:9px;color:rgba(244,232,193,.42)}
-.ct{margin:0 15px 11px;background:rgba(139,26,26,.1);border:1px solid rgba(139,26,26,.32);border-radius:12px;padding:13px}
-.cth{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.ctt{font-size:12px;color:var(--red);font-weight:700}
-.cti{background:rgba(255,255,255,.03);border:1px solid rgba(139,26,26,.22);border-radius:9px;padding:10px;margin-bottom:7px}
-.ctit{display:flex;align-items:center;gap:9px;margin-bottom:6px}
-.ctic{font-size:24px}
-.ctii{flex:1}.ctil{font-size:9px;color:rgba(244,232,193,.42);margin-bottom:2px}.ctis{font-size:11px;font-weight:700}
+#inv{background:#0D0805;padding-bottom:80px;overflow-y:auto}
+.is{margin:14px 16px;background:rgba(212,175,55,.06);border:2px solid rgba(212,175,55,.25);border-radius:16px;padding:18px;text-align:center}
+.ip{font-family:'Cinzel Decorative',serif;font-size:38px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px}
+.il{font-size:var(--fs-sm);color:rgba(244,232,193,.45);margin-bottom:12px}
+.ib2{height:10px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden;margin-bottom:6px}
+.if2{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l));border-radius:5px;width:64%}
+.in{font-size:var(--fs-sm);color:var(--jade-l);font-weight:700}
+.ib3{margin:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eb{padding:18px 12px;border-radius:16px;border:2px solid rgba(212,175,55,.3);background:rgba(212,175,55,.08);text-align:center;cursor:pointer;min-height:var(--touch)}
+.eb:active{background:rgba(212,175,55,.2);border-color:var(--gold);transform:scale(.97)}
+.ei{font-size:28px;margin-bottom:5px}.en{font-size:var(--fs-mid);color:var(--gold-l);font-weight:700;margin-bottom:3px}.ev{font-size:var(--fs-sm);color:rgba(244,232,193,.5)}
+/* 보물상자 */
+.ct{margin:0 16px 14px;background:rgba(139,26,26,.12);border:2px solid rgba(139,26,26,.4);border-radius:16px;padding:16px}
+.cth{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ctt{font-size:var(--fs-mid);color:var(--red);font-weight:700}
+.cti{background:rgba(255,255,255,.04);border:2px solid rgba(139,26,26,.3);border-radius:14px;padding:14px;margin-bottom:10px}
+.ctit{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.ctic{font-size:30px}.ctii{flex:1}.ctil{font-size:var(--fs-sm);color:rgba(244,232,193,.45);margin-bottom:2px}.ctis{font-size:var(--fs-mid);font-weight:700}
 .safe{color:var(--jade-l)}.danger{color:#FF6B6B;animation:db 1s ease-in-out infinite}
 @keyframes db{0%,100%{opacity:1}50%{opacity:.4}}
-.cttm{font-size:24px;font-weight:900;font-family:'Cinzel Decorative',serif;text-align:center;color:var(--gold);letter-spacing:3px;margin:5px 0 3px}
+.cttm{font-size:32px;font-weight:900;font-family:'Cinzel Decorative',serif;text-align:center;color:var(--gold);letter-spacing:3px;margin:8px 0 4px}
 .cttm.urg{color:#FF6B6B}
-.ctp{height:7px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.ctf{height:100%;border-radius:3px;transition:width .5s}
-.ctfg{background:linear-gradient(90deg,var(--jade),var(--jade-l))}
-.ctfr{background:linear-gradient(90deg,#8B0000,#FF4444)}
-.cta{font-size:9px;color:rgba(244,232,193,.32);margin-top:4px;text-align:center}
-.cg{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}
-.icd{border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,.04);position:relative}
-.icdi{height:75px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.ctp{height:10px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden}
+.ctf{height:100%;border-radius:5px}
+.ctfg{background:linear-gradient(90deg,var(--jade),var(--jade-l))}.ctfr{background:linear-gradient(90deg,#8B0000,#FF4444)}
+.cta{font-size:var(--fs-sm);color:rgba(244,232,193,.4);margin-top:6px;text-align:center}
+.cg{padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.icd{border-radius:14px;overflow:hidden;border:2px solid rgba(212,175,55,.25);background:rgba(255,255,255,.04);position:relative}
+.icdi{height:90px;display:flex;align-items:center;justify-content:center;font-size:32px}
 .frag{background:linear-gradient(135deg,#0f2a1a,#1a3a2a)}.tabl{background:linear-gradient(135deg,#1a0f2a,#2a1a3a)}.hist{background:linear-gradient(135deg,#2a1a00,#1a0f00)}
-.icdb{padding:8px}
-.icdb-n{font-size:10px;font-weight:700;color:var(--parch);margin-bottom:1px}
-.icdb-t{font-size:8px;color:rgba(244,232,193,.32)}
-.icq{position:absolute;top:5px;right:5px;background:rgba(13,8,5,.8);border:1px solid rgba(212,175,55,.32);color:var(--gold);font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px}
-
-/* SHINRYEONG */
-#shin{background:#0D0805;padding-bottom:80px}
-.shi{padding:17px 15px 11px;text-align:center}
-.shi h2{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--gold);margin-bottom:6px}
-.shi p{font-size:11px;color:rgba(244,232,193,.48);line-height:1.7}
-.cpd{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.26);border-radius:10px;padding:12px;margin:0 15px 15px;text-align:center}
-.cpb{font-size:36px;font-weight:900;color:var(--gold);font-family:'Cinzel Decorative',serif}
-.cpn{font-size:10px;color:rgba(244,232,193,.42);margin-top:4px}
-.sg{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
-.spc2{background:rgba(255,255,255,.04);border-radius:12px;padding:13px;text-align:center;cursor:pointer;transition:.3s;border:1px solid rgba(212,175,55,.2)}
-.spc2:hover{transform:scale(1.03)}
-.ss3{border-color:rgba(212,175,55,.28)}.sd3{border-color:rgba(46,125,90,.28)}.sg3{border-color:rgba(218,112,214,.28)}.sj3{border-color:rgba(139,26,26,.32)}
-.se2{font-size:38px;margin-bottom:6px;display:block}
-.sn2{font-family:'Noto Serif KR',serif;font-size:13px;font-weight:700;color:var(--parch);margin-bottom:2px}
-.snj{font-size:9px;color:rgba(244,232,193,.32);margin-bottom:6px}
-.sr{display:flex;flex-direction:column;gap:2px}
-.rr{display:flex;justify-content:space-between;font-size:8px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.rj{color:#FFD700}.rh{color:var(--jade-l)}.rm{color:rgba(244,232,193,.52)}.rl{color:rgba(244,232,193,.28)}
-.srq{margin-top:6px;font-size:8px;padding:3px 7px;border-radius:6px;display:inline-block}
-.lck{background:rgba(139,26,26,.12);border:1px solid rgba(139,26,26,.28);color:rgba(244,232,193,.32)}
-.rdy{background:rgba(46,125,90,.16);border:1px solid rgba(76,175,128,.32);color:var(--jade-l)}
-
-/* SUMMON OVERLAY */
-#so{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+.icdb{padding:10px}.icdb-n{font-size:var(--fs-sm);font-weight:700;color:var(--parch);margin-bottom:2px}.icdb-t{font-size:11px;color:rgba(244,232,193,.35)}
+.icq{position:absolute;top:6px;right:6px;background:rgba(13,8,5,.85);border:1px solid rgba(212,175,55,.4);color:var(--gold);font-size:11px;font-weight:700;padding:2px 7px;border-radius:8px}
+/* SHIN */
+#shin{background:#0D0805;padding-bottom:80px;overflow-y:auto}
+.shi{padding:20px 16px 14px;text-align:center}
+.shi h2{font-family:'Noto Serif KR',serif;font-size:22px;color:var(--gold);margin-bottom:8px}
+.shi p{font-size:var(--fs-sm);color:rgba(244,232,193,.5);line-height:1.7}
+.cpd{background:rgba(212,175,55,.08);border:2px solid rgba(212,175,55,.3);border-radius:16px;padding:16px;margin:0 16px 18px;text-align:center}
+.cpb{font-size:44px;font-weight:900;color:var(--gold);font-family:'Cinzel Decorative',serif}
+.cpn{font-size:var(--fs-sm);color:rgba(244,232,193,.45);margin-top:4px}
+.sg{padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.spc2{background:rgba(255,255,255,.05);border-radius:16px;padding:16px;text-align:center;cursor:pointer;border:2px solid rgba(212,175,55,.22);min-height:180px}
+.spc2:active{transform:scale(.97)}
+.ss3{border-color:rgba(212,175,55,.32)}.sd3{border-color:rgba(46,125,90,.32)}.sg3{border-color:rgba(218,112,214,.32)}.sj3{border-color:rgba(139,26,26,.38)}
+.se2{font-size:44px;margin-bottom:8px;display:block}
+.sn2{font-family:'Noto Serif KR',serif;font-size:var(--fs-mid);font-weight:700;color:var(--parch);margin-bottom:3px}
+.snj{font-size:11px;color:rgba(244,232,193,.35);margin-bottom:8px}
+.sr{display:flex;flex-direction:column;gap:3px}
+.rr{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.rj{color:#FFD700}.rh{color:var(--jade-l)}.rm{color:rgba(244,232,193,.55)}.rl{color:rgba(244,232,193,.28)}
+.srq{margin-top:8px;font-size:11px;padding:4px 8px;border-radius:8px;display:inline-block}
+.lck{background:rgba(139,26,26,.14);border:1px solid rgba(139,26,26,.3);color:rgba(244,232,193,.35)}
+/* OVERLAYS */
+#so{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px}
 #so.on{display:flex}
-.soe{font-size:85px;animation:soa .9s ease-out;filter:drop-shadow(0 0 28px rgba(212,175,55,.8))}
+.soe{font-size:90px;animation:soa .9s ease-out;filter:drop-shadow(0 0 28px rgba(212,175,55,.8))}
 @keyframes soa{from{opacity:0;transform:scale(0) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0)}}
 .sol{width:100%;text-align:center;margin:16px 0}
-.sol-l{font-family:'Noto Serif KR',serif;font-size:15px;color:var(--gold);font-weight:700;margin-bottom:3px;opacity:0;animation:lf .5s forwards}
+.sol-l{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--gold);font-weight:700;margin-bottom:4px;opacity:0;animation:lf .5s forwards}
 .sol-l:nth-child(2){animation-delay:.4s}.sol-l:nth-child(3){animation-delay:.8s}
 @keyframes lf{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sor{background:rgba(13,8,5,.85);border:2px solid var(--gold);border-radius:14px;padding:20px;text-align:center;width:100%;max-width:290px;opacity:0;animation:rb .6s 1.4s forwards;box-shadow:0 0 50px rgba(212,175,55,.4)}
+.sor{background:rgba(13,8,5,.85);border:3px solid var(--gold);border-radius:20px;padding:24px;text-align:center;width:100%;max-width:320px;opacity:0;animation:rb .6s 1.4s forwards;box-shadow:0 0 50px rgba(212,175,55,.4)}
 @keyframes rb{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
-.sore{font-size:46px;margin-bottom:6px;display:block}
-.sorn{font-size:14px;font-weight:700;color:var(--gold-l);margin-bottom:3px}
-.sord{font-size:10px;color:rgba(244,232,193,.52);margin-bottom:13px;line-height:1.5;white-space:pre-line}
-.sorp{font-size:12px;color:var(--jade-l);font-weight:700}
-
-/* RICHI */
+.sore{font-size:52px;margin-bottom:8px;display:block}
+.sorn{font-size:18px;font-weight:700;color:var(--gold-l);margin-bottom:4px}
+.sord{font-size:var(--fs-sm);color:rgba(244,232,193,.6);margin-bottom:14px;line-height:1.6;white-space:pre-line}
+.sorp{font-size:var(--fs-mid);color:var(--jade-l);font-weight:700}
+.sum-close{margin-top:20px;background:var(--red);border:2px solid var(--gold);color:var(--gold-l);padding:16px 36px;border-radius:30px;font-size:var(--fs-mid);cursor:pointer;font-family:'Noto Serif KR',serif;min-height:var(--touch)}
 .ro{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:400;display:none;align-items:center;justify-content:center;flex-direction:column}
 .ro.on{display:flex}
-.rt{font-family:'Noto Serif KR',serif;font-size:30px;color:var(--gold);font-weight:900;letter-spacing:3px;animation:rp .5s ease-in-out infinite alternate}
+.rt{font-family:'Noto Serif KR',serif;font-size:32px;color:var(--gold);font-weight:900;letter-spacing:3px;animation:rp .5s ease-in-out infinite alternate;text-align:center;padding:0 20px}
 @keyframes rp{from{text-shadow:0 0 20px var(--gold);transform:scale(1)}to{text-shadow:0 0 60px var(--gold);transform:scale(1.04)}}
-.rs{font-size:13px;color:rgba(244,232,193,.5);margin-top:8px}
-.re{font-size:55px;margin-top:16px;animation:bou .8s .5s both}
+.rs{font-size:var(--fs-mid);color:rgba(244,232,193,.6);margin-top:8px;text-align:center}
+.re{font-size:64px;margin-top:18px;animation:bou .8s .5s both}
 @keyframes bou{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
-
-/* OVERLAYS */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.ov.on{display:flex;animation:fi .3s}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-.bs{background:linear-gradient(180deg,#1a0f00,#0D0805);border:1px solid rgba(212,175,55,.26);border-radius:17px 17px 0 0;padding:20px 16px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;animation:su .33s ease-out}
+.richi-close{margin-top:20px;background:transparent;border:2px solid rgba(212,175,55,.4);color:rgba(244,232,193,.6);padding:12px 28px;border-radius:20px;font-size:var(--fs-sm);cursor:pointer;min-height:var(--touch)}
+/* 퀘스트 완료 팝업 */
+.qcpop{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.qcpop.on{display:flex;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.qcp-box{background:linear-gradient(180deg,#1a1f00,#0D0805);border:3px solid var(--jade-l);border-radius:24px;padding:32px 24px;text-align:center;width:100%;max-width:320px;box-shadow:0 0 60px rgba(76,175,128,.5)}
+.qcp-icon{font-size:72px;margin-bottom:12px;display:block;animation:bou .8s}
+.qcp-title{font-family:'Noto Serif KR',serif;font-size:26px;color:var(--jade-l);font-weight:700;margin-bottom:8px}
+.qcp-body{font-size:var(--fs-mid);color:var(--parch);line-height:1.7;margin-bottom:16px}
+.qcp-pts{font-size:36px;font-weight:900;color:var(--gold-l);margin-bottom:20px}
+.qcp-btn{width:100%;background:var(--jade);border:none;color:#fff;font-size:var(--fs-big);font-weight:700;padding:18px;border-radius:14px;cursor:pointer;font-family:'Noto Serif KR',serif;min-height:var(--touch)}
+/* 바텀시트 */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.ov.on{display:flex;animation:fadeIn .3s}
+.bs{background:linear-gradient(180deg,#1a0f00,#0D0805);border:2px solid rgba(212,175,55,.3);border-radius:22px 22px 0 0;padding:24px 20px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;animation:su .33s ease-out}
 @keyframes su{from{transform:translateY(100%)}to{transform:none}}
-.bsh{width:36px;height:4px;background:rgba(212,175,55,.25);border-radius:2px;margin:0 auto 17px}
-.bst{font-family:'Noto Serif KR',serif;font-size:16px;color:var(--gold);font-weight:700;margin-bottom:3px}
-.bss{font-size:10px;color:rgba(244,232,193,.46);margin-bottom:14px}
-.qi{display:flex;align-items:flex-start;gap:10px;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.12);border-radius:9px;margin-bottom:7px}
-.qii{font-size:19px;flex-shrink:0;margin-top:1px}
-.qib{flex:1}
-.qin{font-size:12px;font-weight:700;color:var(--parch);margin-bottom:2px}
-.qid{font-size:10px;color:rgba(244,232,193,.46);line-height:1.5;margin-bottom:4px}
-.qir{font-size:10px;color:var(--jade-l);font-weight:700}
-.bsbtn{width:100%;background:linear-gradient(135deg,var(--red),#5a0f0f);border:2px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:14px;font-weight:700;padding:13px;border-radius:9px;cursor:pointer;margin-top:10px;letter-spacing:1px;transition:.3s}
-.bsbtn:hover{box-shadow:0 0 24px rgba(212,175,55,.38)}
-.bsbtn2{background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.2);color:rgba(244,232,193,.62)}
-
-/* PLACE DETAIL */
-#pd{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:150;display:none;align-items:flex-end}
+.bsh{width:44px;height:5px;background:rgba(212,175,55,.28);border-radius:3px;margin:0 auto 20px}
+.bst{font-family:'Noto Serif KR',serif;font-size:20px;color:var(--gold);font-weight:700;margin-bottom:4px}
+.bss{font-size:var(--fs-sm);color:rgba(244,232,193,.5);margin-bottom:16px}
+.qi{display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.15);border-radius:12px;margin-bottom:9px}
+.qii{font-size:24px;flex-shrink:0;margin-top:2px}.qib{flex:1}
+.qin{font-size:var(--fs-mid);font-weight:700;color:var(--parch);margin-bottom:3px}
+.qid{font-size:var(--fs-sm);color:rgba(244,232,193,.5);line-height:1.5;margin-bottom:5px}
+.qir{font-size:var(--fs-sm);color:var(--jade-l);font-weight:700}
+.bsbtn{width:100%;background:linear-gradient(135deg,var(--red),#5a0f0f);border:3px solid var(--gold);color:var(--gold-l);font-family:'Noto Serif KR',serif;font-size:var(--fs-big);font-weight:700;padding:18px;border-radius:14px;cursor:pointer;margin-top:14px;min-height:var(--touch)}
+.bsbtn:active{transform:scale(.98)}
+.bsbtn2{background:rgba(255,255,255,.06);border:2px solid rgba(212,175,55,.25);color:rgba(244,232,193,.7)}
+/* 장소 상세 */
+#pd{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:150;display:none;align-items:flex-end}
 #pd.on{display:flex}
-.pds{background:linear-gradient(180deg,#1a0f00,#0D0805);border:1px solid rgba(212,175,55,.26);border-radius:17px 17px 0 0;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:20px 16px 26px;animation:su .33s ease-out;margin:0 auto}
-.phe{height:140px;border-radius:10px;overflow:hidden;margin-bottom:13px;background:linear-gradient(135deg,#2a1a0a,#1a0f00);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
-.phb{position:absolute;bottom:6px;left:6px;background:rgba(13,8,5,.85);border:1px solid rgba(212,175,55,.32);border-radius:6px;padding:2px 7px;font-size:8px;color:var(--gold-l)}
-.pn{font-family:'Noto Serif KR',serif;font-size:17px;color:var(--gold);font-weight:700;margin-bottom:3px}
-.pnj{font-size:11px;color:rgba(244,232,193,.42);margin-bottom:10px}
-.pd2{font-size:11px;color:rgba(244,232,193,.52);line-height:1.7;margin-bottom:13px}
-.ir{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.ii{font-size:14px;flex-shrink:0;margin-top:1px}
-.ilab{font-size:9px;color:rgba(244,232,193,.32);margin-bottom:1px}
-.ival{font-size:11px;color:var(--parch)}
-.mm{height:125px;background:linear-gradient(135deg,#0f1a2a,#0D0805);border:1px solid rgba(212,175,55,.16);border-radius:9px;margin:11px 0;overflow:hidden;position:relative}
-#mgmap{width:100%;height:125px}
-.to{display:flex;gap:5px;margin-top:9px}
-.tob{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.16);border-radius:7px;padding:7px;text-align:center;cursor:pointer;transition:.3s}
-.tob:hover{border-color:var(--gold);background:rgba(212,175,55,.08)}
-.tom{font-size:14px;margin-bottom:2px}
-.tot{font-size:10px;color:var(--jade-l);font-weight:700}
-.tod{font-size:8px;color:rgba(244,232,193,.32);line-height:1.3}
-
-/* SCRATCH */
-.mga{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.16);border-radius:12px;padding:13px;margin-bottom:11px}
-.mgt{font-size:11px;color:var(--gold-l);font-weight:700;margin-bottom:9px;text-align:center}
-.scrcard{width:185px;height:90px;background:linear-gradient(135deg,#2a1a0a,#1a0f00);border:2px solid var(--gold-d);border-radius:8px;margin:0 auto;position:relative;cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.scrc{position:absolute;inset:0;background:linear-gradient(135deg,#3a2a0a,#2a1a05);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold-l);transition:opacity .5s}
+.pds{background:linear-gradient(180deg,#1a0f00,#0D0805);border:2px solid rgba(212,175,55,.3);border-radius:22px 22px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding:22px 18px 30px;animation:su .33s ease-out;margin:0 auto}
+.phe{height:160px;border-radius:14px;overflow:hidden;margin-bottom:16px;background:linear-gradient(135deg,#2a1a0a,#1a0f00);display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
+.phb{position:absolute;bottom:8px;left:8px;background:rgba(13,8,5,.88);border:1px solid rgba(212,175,55,.35);border-radius:8px;padding:3px 9px;font-size:11px;color:var(--gold-l)}
+.pn{font-family:'Noto Serif KR',serif;font-size:22px;color:var(--gold);font-weight:700;margin-bottom:4px}
+.pnj{font-size:13px;color:rgba(244,232,193,.45);margin-bottom:12px}
+.pd2{font-size:var(--fs-sm);color:rgba(244,232,193,.6);line-height:1.7;margin-bottom:16px}
+.ir{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.ii{font-size:18px;flex-shrink:0;margin-top:1px}.ilab{font-size:11px;color:rgba(244,232,193,.35);margin-bottom:2px}.ival{font-size:var(--fs-sm);color:var(--parch)}
+.mm{height:140px;background:linear-gradient(135deg,#0f1a2a,#0D0805);border:1px solid rgba(212,175,55,.2);border-radius:12px;margin:14px 0;overflow:hidden;position:relative}
+#mgmap{width:100%;height:140px}
+.to{display:flex;gap:8px;margin-top:12px}
+.tob{flex:1;background:rgba(255,255,255,.05);border:2px solid rgba(212,175,55,.2);border-radius:12px;padding:10px;text-align:center;cursor:pointer;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tob:active{border-color:var(--gold);background:rgba(212,175,55,.1)}
+.tom{font-size:20px}.tot{font-size:var(--fs-sm);color:var(--jade-l);font-weight:700}.tod{font-size:11px;color:rgba(244,232,193,.35);line-height:1.3}
+/* 스크래치 */
+.mga{background:rgba(255,255,255,.04);border:2px solid rgba(212,175,55,.2);border-radius:16px;padding:16px;margin-bottom:14px}
+.mgt{font-size:var(--fs-mid);color:var(--gold-l);font-weight:700;margin-bottom:12px;text-align:center}
+.scrcard{width:200px;height:100px;background:linear-gradient(135deg,#2a1a0a,#1a0f00);border:2px solid var(--gold-d);border-radius:12px;margin:0 auto;position:relative;cursor:pointer;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.scrc{position:absolute;inset:0;background:linear-gradient(135deg,#3a2a0a,#2a1a05);display:flex;align-items:center;justify-content:center;font-size:var(--fs-mid);color:var(--gold-l);transition:opacity .5s}
 .scrc.scratched{opacity:0;pointer-events:none}
-.mul{font-size:28px;font-weight:900;font-family:'Cinzel Decorative',serif;color:var(--gold)}
-
-/* TOAST */
-.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(46,125,90,.92),rgba(76,175,128,.85));border:1px solid var(--jade-l);color:#fff;padding:9px 18px;border-radius:24px;font-size:12px;font-weight:700;z-index:500;display:none;animation:ta .35s ease-out;white-space:nowrap;box-shadow:0 0 22px rgba(76,175,128,.4)}
-.toast.on{display:block}
+.mul{font-size:32px;font-weight:900;font-family:'Cinzel Decorative',serif;color:var(--gold)}
+/* 토스트 */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(46,125,90,.96),rgba(76,175,128,.9));border:3px solid var(--jade-l);color:#fff;padding:14px 24px;border-radius:30px;font-size:var(--fs-mid);font-weight:700;z-index:500;display:none;white-space:nowrap;box-shadow:0 0 30px rgba(76,175,128,.5);max-width:90vw;text-align:center}
+.toast.on{display:block;animation:ta .35s ease-out}
 @keyframes ta{from{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.9)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
-
-.spc3{height:11px}
-::-webkit-scrollbar{width:3px;height:3px}
-::-webkit-scrollbar-thumb{background:rgba(212,175,55,.22);border-radius:2px}
+.spc3{height:14px}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.25);border-radius:2px}
 </style>
 </head>
 <body>
+<div class="mgrid"></div>
 
 <!-- SPLASH -->
 <div id="splash" class="screen active">
-  <div class="mgrid"></div>
-  <div id="ptcl"></div>
   <div class="sc">
     <div class="stone">
       <div class="tgg">
@@ -349,133 +325,206 @@ body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch)
         <div class="tg"><div class="tls"><div class="tl b"></div><div class="tl b"></div><div class="tl b"></div></div><span class="tll">☷곤</span></div>
       </div>
     </div>
-    <div class="st">대한민국 보물지도</div>
-    <div class="ss">KOREA TREASURE MAP</div>
-    <div class="sj">大韓民国の宝の地図へようこそ</div>
-    <button class="btnS" onclick="go('ai')">🗺️ 보물 찾기 시작!</button>
-    <div style="margin-top:16px;font-size:9px;color:rgba(212,175,55,.35);letter-spacing:.5px">Google Maps + TourAPI 연동 · V10 샘플</div>
+    <div class="splash-title">대한민국 보물지도</div>
+    <div class="splash-sub">KOREA TREASURE MAP</div>
+    <div class="splash-jp">大韓民国の宝の地図へようこそ</div>
+    <button class="btn-start" onclick="go('ai')">🗺️ 보물 찾기 시작!</button>
+    <div style="margin-top:14px;font-size:11px;color:rgba(212,175,55,.3)">V11 · Google Maps + TourAPI</div>
   </div>
 </div>
 
 <!-- AI Q&A -->
 <div id="ai" class="screen">
-  <div class="ph"><button class="bk" onclick="go('splash')">←</button><h2>🤖 AI 탐험 코스마스터</h2><span class="lb" onclick="toggleLang()">🌐 JP</span></div>
-  <div style="overflow-y:auto;flex:1;padding-bottom:80px">
-    <div class="ah"><h2>나만의 보물지도 만들기</h2><p>몇 가지 질문으로 최적의 탐험 코스를 만들어 드려요.<br>旅の情報を教えていただければ最適なコースをご提案します。</p></div>
-    <div class="qs">
-      <div class="qc act"><div class="qn">STEP 01 · 여행 기간</div><div class="qq">며칠 일정으로 여행하시나요?</div><div class="qj">何日間の旅行ですか？</div>
-        <div class="og"><button class="ob" onclick="sel(this)">1박 2일</button><button class="ob" onclick="sel(this)">2박 3일</button><button class="ob" onclick="sel(this)">3박 4일</button><button class="ob" onclick="sel(this)">4박 이상</button></div></div>
-      <div class="qc"><div class="qn">STEP 02 · 서울·부산 방문</div><div class="qq">서울이나 부산도 방문 계획이 있으신가요?</div><div class="qj">ソウルや釜山にも行く予定はありますか？</div>
-        <div class="og"><button class="ob" onclick="sel(this)">서울만</button><button class="ob" onclick="sel(this)">부산만</button><button class="ob" onclick="sel(this)">둘 다</button><button class="ob" onclick="sel(this)">지방만</button></div></div>
-      <div class="qc"><div class="qn">STEP 03 · 여행 테마</div><div class="qq">가장 원하는 여행 스타일은?</div><div class="qj">どんな旅がしたいですか？</div>
-        <div class="og"><button class="ob" onclick="sel(this)">🍜 맛집 탐방</button><button class="ob" onclick="sel(this)">🏯 역사 투어</button><button class="ob" onclick="sel(this)">🎬 드라마 촬영지</button><button class="ob" onclick="sel(this)">⭐ 연예인 투어</button><button class="ob of" onclick="sel(this)">🗺️ 전부 조금씩 (추천)</button></div></div>
-      <div class="qc"><div class="qn">STEP 04 · 동행</div><div class="qq">누구와 함께 오셨나요?</div><div class="qj">誰と一緒ですか？</div>
-        <div class="og"><button class="ob" onclick="sel(this)">혼자</button><button class="ob" onclick="sel(this)">커플</button><button class="ob" onclick="sel(this)">친구들</button><button class="ob" onclick="sel(this)">가족</button></div></div>
+  <div class="ph"><button class="bk" onclick="go('splash')">←</button><h2>🤖 보물지도 만들기</h2></div>
+  <div class="ah"><h2>어떤 여행을 꿈꾸세요? ✨</h2><p>몇 가지만 알려주시면 딱 맞는 보물지도를 만들어 드려요!</p></div>
+
+  <!-- Q1 기간 -->
+  <div class="qc act" id="q1">
+    <div class="qn"><span class="qnc">1</span>여행 기간이 어떻게 되세요?</div>
+    <div class="qq">며칠 동안 여행하시나요?</div>
+    <div class="qj">何日間の旅行ですか？</div>
+    <div class="og">
+      <button class="ob" onclick="sel(this)">1박 2일</button>
+      <button class="ob" onclick="sel(this)">2박 3일</button>
+      <button class="ob" onclick="sel(this)">3박 4일</button>
+      <button class="ob" onclick="sel(this)">4박 이상</button>
     </div>
-    <button class="bn" onclick="startAdv()">✨ 나의 보물지도 생성하기!</button>
   </div>
+
+  <!-- Q2 서울/부산 (심리 유도) -->
+  <div class="qc" id="q2">
+    <div class="qn"><span class="qnc">2</span>어디서 시작하실 건가요?</div>
+    <div class="qq">서울이나 부산도 가실 예정인가요?</div>
+    <div class="qj">ソウルや釜山にも行く予定はありますか？</div>
+    <div class="og">
+      <button class="ob" onclick="selCity(this,'seoul')">🗼 서울</button>
+      <button class="ob" onclick="selCity(this,'busan')">🌊 부산</button>
+      <button class="ob of" onclick="selCity(this,'none')">🗺️ 바로 보물 탐험 시작!</button>
+    </div>
+    <div class="rec-banner" id="recBanner">
+      <h4>🔥 지금 가장 뜨거운 탐험지가 있어요!</h4>
+      <p id="recText"></p>
+    </div>
+  </div>
+
+  <!-- Q3 지역 선택 -->
+  <div class="qc" id="q3">
+    <div class="qn"><span class="qnc">3</span>어느 지역의 보물을 찾고 싶으세요?</div>
+    <div class="qq">탐험할 곳을 골라보세요!</div>
+    <div class="qj">探検するエリアを選んでください！</div>
+    <div class="city-grid">
+
+      <div class="city-card" onclick="selR(this)">
+        <div class="city-badge hot">🔥 인기 1위</div>
+        <div class="city-top"><span class="city-emoji">🏖️</span><div><div class="city-name">태안</div><div class="city-name-jp">テアン · 忠清南道</div></div></div>
+        <div><span class="city-tag">🏰 안흥성</span><span class="city-tag">🌊 해변</span><span class="city-tag">🦀 꽃게</span></div>
+        <div class="city-hook">"조선시대 수군의 비밀 요새... 아직 발견되지 않은 보물이 가장 많은 곳"</div>
+        <div class="city-live"><span class="live-dot"></span>지금 <strong style="margin:0 3px">28명</strong> 탐험 중</div>
+      </div>
+
+      <div class="city-card" onclick="selR(this)">
+        <div class="city-badge" style="background:rgba(46,125,90,.85)">✨ 보물 다수</div>
+        <div class="city-top"><span class="city-emoji">🌅</span><div><div class="city-name">진도</div><div class="city-name-jp">チンド · 全羅南道</div></div></div>
+        <div><span class="city-tag">🎭 아리랑</span><span class="city-tag">🐕 진돗개</span><span class="city-tag">🌊 신비의 바닷길</span></div>
+        <div class="city-hook">"1년에 딱 한 번 바다가 갈라지는 신비로운 곳... 비밀 보물이 가득해요!"</div>
+        <div class="city-live"><span class="live-dot"></span>지금 <strong style="margin:0 3px">15명</strong> 탐험 중</div>
+      </div>
+
+      <div class="city-card" onclick="selR(this)">
+        <div class="city-top"><span class="city-emoji">🏔️</span><div><div class="city-name">영월</div><div class="city-name-jp">ヨンウォル · 江原道</div></div></div>
+        <div><span class="city-tag">👑 단종 역사</span><span class="city-tag">🌌 별 관측</span><span class="city-tag">🦕 화석</span></div>
+        <div class="city-hook">"비운의 왕 단종의 흔적... 역사 카드가 가장 많이 나오는 숨겨진 보물 지역"</div>
+        <div class="city-live"><span class="live-dot" style="background:#FFD700"></span>지금 <strong style="margin:0 3px">9명</strong> 탐험 중</div>
+      </div>
+
+      <div class="city-card" onclick="selR(this)">
+        <div class="city-badge" style="background:rgba(30,30,100,.85)">🐋 고래 시즌</div>
+        <div class="city-top"><span class="city-emoji">🐋</span><div><div class="city-name">울산</div><div class="city-name-jp">ウルサン · 蔚山</div></div></div>
+        <div><span class="city-tag">🐋 고래 박물관</span><span class="city-tag">🌊 간절곶</span><span class="city-tag">🦌 반구대</span></div>
+        <div class="city-hook">"한국에서 고래가 가장 많이 보이는 곳! 바다 보물이 넘쳐나요"</div>
+        <div class="city-live"><span class="live-dot"></span>지금 <strong style="margin:0 3px">11명</strong> 탐험 중</div>
+      </div>
+
+      <div class="city-card" onclick="selR(this)">
+        <div class="city-badge" style="background:rgba(20,60,100,.85)">🏔️ 설악산 인접</div>
+        <div class="city-top"><span class="city-emoji">🦀</span><div><div class="city-name">속초</div><div class="city-name-jp">ソクチョ · 江原道</div></div></div>
+        <div><span class="city-tag">🏔️ 설악산</span><span class="city-tag">🦀 대게</span><span class="city-tag">🌊 청간정</span></div>
+        <div class="city-hook">"동해의 보물 창고! 설악산 자락에 숨겨진 역사 카드를 찾아보세요"</div>
+        <div class="city-live"><span class="live-dot"></span>지금 <strong style="margin:0 3px">21명</strong> 탐험 중</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q4 스타일 멀티선택 -->
+  <div class="qc" id="q4">
+    <div class="qn"><span class="qnc">4</span>이번 여행의 스타일은? (2개 이상 선택)</div>
+    <div class="qq">어떤 것들을 즐기고 싶으세요?</div>
+    <div class="qj">今回の旅のスタイルは？（複数選択可）</div>
+    <div class="og">
+      <button class="ob ob-m" onclick="multiSel(this)">🍜 맛집 탐방</button>
+      <button class="ob ob-m" onclick="multiSel(this)">🏯 역사 투어</button>
+      <button class="ob ob-m" onclick="multiSel(this)">🎬 드라마 촬영지</button>
+      <button class="ob ob-m" onclick="multiSel(this)">⭐ 연예인 투어</button>
+      <button class="ob ob-m" onclick="multiSel(this)">🌿 자연·트레킹</button>
+      <button class="ob ob-m" onclick="multiSel(this)">🌊 해산물</button>
+      <button class="ob ob-m of" onclick="multiSel(this)">🗺️ 전부 조금씩!</button>
+    </div>
+  </div>
+
+  <!-- Q5 동행 -->
+  <div class="qc" id="q5">
+    <div class="qn"><span class="qnc">5</span>누구와 함께 오셨나요?</div>
+    <div class="qq">동행이 있으신가요?</div>
+    <div class="qj">誰と一緒ですか？</div>
+    <div class="og">
+      <button class="ob" onclick="sel(this)">혼자 👤</button>
+      <button class="ob" onclick="sel(this)">커플 💑</button>
+      <button class="ob" onclick="sel(this)">친구들 👥</button>
+      <button class="ob" onclick="sel(this)">가족 👨‍👩‍👧</button>
+    </div>
+  </div>
+
+  <button class="bn" onclick="startAdv()">✨ 나의 보물지도 생성하기!</button>
+  <div class="spc3"></div>
 </div>
 
 <!-- MAP -->
 <div id="map" class="screen">
   <div class="jh">
-    <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Noto Serif KR',serif;font-size:13px;color:var(--gold);font-weight:700">🗺️ 나의 보물지도</span><span style="font-size:9px;color:rgba(244,232,193,.32)">아산·태안 3박4일</span></div>
-    <div class="jr"><span class="rn mn">✈️ 인천</span><span class="ra">→</span><span class="rn mn">🗼 서울</span><span class="ra">→</span><span class="rn tr">🗺️ 아산·태안 보물투어</span><span class="ra">→</span><span class="rn mn">✈️ 귀국</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span style="font-family:'Noto Serif KR',serif;font-size:16px;color:var(--gold);font-weight:700">🗺️ 나의 보물지도</span>
+      <span style="font-size:11px;color:rgba(244,232,193,.35)">아산·태안 3박4일</span>
+    </div>
+    <div class="jr">
+      <span class="rn mn">✈️ 인천</span><span class="ra">→</span>
+      <span class="rn mn">🗼 서울</span><span class="ra">→</span>
+      <span class="rn tr">🗺️ 아산·태안 보물투어</span><span class="ra">→</span>
+      <span class="rn mn">✈️ 귀국</span>
+    </div>
   </div>
-  <div style="overflow-y:auto;flex:1">
-    <div class="sc2">
-      <div class="st2"><span class="sti">🎫 탐험 스탬프 카드</span><span class="stp">3,200 / 5,000 pt</span></div>
-      <div class="sd" id="stamps"></div>
-      <div style="font-size:8px;color:rgba(244,232,193,.28);margin-top:4px">★ 3장 선지급 시작 · 골든 찬스 칸은 어디일까요? 🤫</div>
-    </div>
-    <div class="mc"><div class="mld" id="mld"><span style="font-size:26px">🗺️</span><span>Google Maps 로딩 중...</span></div><div id="gmap"></div><div class="man">Google Maps + TourAPI</div></div>
-    <div class="sp">
-      <div class="spt">🔴 LIVE · 지금 이 지역</div>
-      <div class="spf">
-        <div class="spi"><span class="spd green"></span>탐험가_田中** 방금 온양갈비서 파편 획득!<span class="spc">2분 전</span></div>
-        <div class="spi"><span class="spd gld"></span>탐험가_鈴木** 보물상자를 태안에 숨겼어요!<span class="spc">11분 전</span></div>
-        <div class="spi"><span class="spd red"></span>지금 이 지역 탐험 중: <strong style="color:var(--gold-l)">31명</strong><span class="spc">실시간</span></div>
-      </div>
-    </div>
-    <div class="tb">
-      <button class="trb on" onclick="setTr(this)">🚌 버스</button>
-      <button class="trb" onclick="setTr(this)">🚇 지하철</button>
-      <button class="trb" onclick="setTr(this)">🚕 택시</button>
-      <button class="trb" onclick="setTr(this)">🚶 도보</button>
-      <button class="trb" onclick="setTr(this)">🚄 KTX</button>
-    </div>
-    <div class="cb" onclick="openOv('cbov')"><span class="cbi">🧾</span><div class="cbt"><h4>영수증 1.5% 포인트 캐시백</h4><p>결제 후 QR 스캔 or 영수증 촬영으로 자동 적립<br>レシート登録で1.5%ポイント還元！</p></div><span class="cbp">+1.5%</span></div>
-    <div class="cs">
-      <div class="stl">🍜 맛집 + 볼거리 코스</div>
-      <div class="cc v" onclick="showP('galbi')">
-        <div class="ci"><div class="cim">🥩</div><div class="cn2"><div class="cty">🍜 지정 맛집 · 필수</div><div class="cna">온양 원조갈비 본점</div><div class="cnj">オニャン元祖カルビ 本店</div><div class="cts"><span class="tag tq">✨ 퀘스트</span><span class="tag tf">갈비</span></div></div>
-        <div class="cst"><span class="sb sk">✅ 완료</span><span class="tm">+500pt</span></div></div>
-      </div>
-      <div class="cc" onclick="showP('oncheon')">
-        <div class="ci"><div class="cim">♨️</div><div class="cn2"><div class="cty">♨️ 온천 · 체험</div><div class="cna">온양온천 스파랜드</div><div class="cnj">オニャン温泉スパランド</div><div class="cts"><span class="tag tq">✨ 퀘스트</span><span class="tag th">체험</span></div></div>
-        <div class="cst"><span class="sb sn">🔴 진행 중</span><span class="tm" id="t1">4:32</span></div></div>
-        <div style="padding:0 10px 10px"><div class="tbar"><div class="tf2" id="tf1" style="width:60%"></div></div><div style="font-size:8px;color:rgba(244,232,193,.32);margin-top:3px">5분 체류 필요 · 残り4:32</div></div>
-      </div>
-      <div class="cc" onclick="showP('hyun')">
-        <div class="ci"><div class="cim">🏯</div><div class="cn2"><div class="cty">🏛️ 역사 스팟 · TourAPI</div><div class="cna">현충사 (이순신 장군)</div><div class="cnj">顕忠祠 (李舜臣将軍)</div><div class="cts"><span class="tag th">역사</span><span class="tag tq">🗿 석판</span></div></div>
-        <div class="cst"><span class="sb sd2">예정</span></div></div>
-      </div>
-      <div class="cc" onclick="showP('drama')">
-        <div class="ci"><div class="cim">🎬</div><div class="cn2"><div class="cty">🎬 드라마 촬영지</div><div class="cna">킹덤 촬영지 (외암민속마을)</div><div class="cnj">韓ドラ「キングダム」撮影地</div><div class="cts"><span class="tag tc">킹덤</span><span class="tag th">민속</span></div></div>
-        <div class="cst"><span class="sb sd2">예정</span></div></div>
-      </div>
-      <div class="hm">
-        <div class="hfog"></div>
-        <span class="hpin" style="top:42%;left:56%">📍</span><span class="hpin" style="top:62%;left:34%;animation-delay:.8s">❓</span>
-        <div class="htl">🗺️ 숨겨진 보물 스팟?</div>
-        <div class="hm2">서쪽 해안 요새 터에 뭔가 숨겨진 것 같아요...<br>조선시대 수군의 요새 · 서쪽 35분<br>퀘스트 3개 완료 시 공개! (2/3 완료)</div>
-      </div>
-    </div>
-    <div class="lc">
-      <div class="stl" style="padding:0">🃏 지역 한정판 카드 세트</div>
-      <div class="lcg">
-        <div class="lcc ow"><div class="lce">🥩</div><div class="lcn">충청 맛카드</div><div class="lcr">충남 아산</div></div>
-        <div class="lcc"><div class="lce">⛩️</div><div class="lcn">경주 역사카드</div><div class="lcr">경북 경주</div></div>
-        <div class="lcc lk"><div class="lce">🌋</div><div class="lcn">제주 보물카드</div><div class="lcr">제주도</div></div>
-        <div class="lcc lk"><div class="lce">🏔️</div><div class="lcn">강원 설산카드</div><div class="lcr">강원도</div></div>
-        <div class="lcc lk"><div class="lce">🌊</div><div class="lcn">전주 한옥카드</div><div class="lcr">전북 전주</div></div>
-        <div class="lcc lk"><div class="lce">🎑</div><div class="lcn">안동 탈카드</div><div class="lcr">경북 안동</div></div>
-      </div>
-      <div class="lcch">🏆 6장 완성 → <strong style="color:var(--gold)">대한민국 보물 1세트</strong> + 특별 선물!</div>
-    </div>
-    <div class="ss2">
-      <div class="stl" style="margin:0 0 8px">🌸 계절별 추천 코스</div>
-      <div class="stb">
-        <button class="stab" onclick="setSeason(this,'spring')">🌸 봄</button>
-        <button class="stab on" onclick="setSeason(this,'summer')">☀️ 여름</button>
-        <button class="stab" onclick="setSeason(this,'autumn')">🍂 가을</button>
-        <button class="stab" onclick="setSeason(this,'winter')">❄️ 겨울</button>
-      </div>
-      <div class="sca" id="scard">
-        <span class="se">☀️</span>
-        <div class="si"><h4>동해·남해 여름 해안 코스</h4><p>강릉 경포대, 속초, 거제도 해금강<br>여름에만 즐길 수 있는 바다 탐험!</p><span class="sta">동해</span><span class="sta">남해</span><span class="sta">해수욕</span></div>
-      </div>
-    </div>
-    <div class="vb">
-      <div class="vbr"><span class="vbi">🎫</span><span class="vbt">편의점 상품권 즉시 사용!</span></div>
-      <div class="vbn">5,000pt 달성 시 자동 지급 · 한국 내 즉시 사용 · 지자체 공급 원칙</div>
-      <div class="vbs">
-        <span class="vbsh">🏪 GS25 <span class="ib">즉시</span></span>
-        <span class="vbsh">🏪 CU <span class="ib">즉시</span></span>
-        <span class="vbsh">🏪 세븐일레븐 <span class="ib">즉시</span></span>
-        <span class="vbsh">🎪 지역사랑상품권 <span class="ib">지자체</span></span>
-      </div>
-    </div>
-    <div class="snb">
-      <div class="snt">친구 <strong>2명에게 공유</strong>하면<br>파편 +1개 지급! 🧩</div>
-      <div class="snbs">
-        <button class="snbtn sl" onclick="share('line')">💬</button>
-        <button class="snbtn sx" onclick="share('x')" style="color:#eee">✕</button>
-        <button class="snbtn si2" onclick="share('insta')">📸</button>
-      </div>
-    </div>
-    <div class="spc3"></div>
+
+  <!-- 퀘스트 (크고 깜빡) -->
+  <div class="quest-now" onclick="openOv('qov')">
+    <div class="qnow-top"><span class="qnow-dot"></span><span class="qnow-title">🔴 지금 퀘스트 진행 중!</span></div>
+    <div class="qnow-body">♨️ <strong>온양온천 스파랜드</strong>에 머물러 주세요!<br>여기 계세요 😊 5분 채우면 파편이 나와요 🧩</div>
+    <div class="qnow-timer" id="timer1">4:32</div>
+    <div class="qnow-bar"><div class="qnow-fill" id="qfill1" style="width:60%"></div></div>
+    <div class="qnow-hint">👆 탭하면 퀘스트 상세 보기</div>
   </div>
+
+  <!-- 스탬프 -->
+  <div class="sc2">
+    <div class="st2"><span class="sti">🎫 탐험 스탬프</span><span class="stp">3,200 / 5,000 pt</span></div>
+    <div class="sd" id="stamps"></div>
+    <div style="font-size:11px;color:rgba(244,232,193,.3);margin-top:5px">★ 3장 선지급 시작 · 골든 칸은 어디일까요? 🤫</div>
+  </div>
+
+  <!-- 지도 -->
+  <div class="map-container" id="mapCont">
+    <div class="map-loading" id="mld"><span style="font-size:30px">🗺️</span><span>지도 로딩 중...</span></div>
+    <div id="gmap"></div>
+    <div class="map-api-note">Google Maps + TourAPI</div>
+    <div class="map-myloc-btn" onclick="goMyLoc()">📍</div>
+    <div class="map-expand-btn" onclick="openFS()">⛶</div>
+  </div>
+
+  <!-- 코스 -->
+  <div class="stl">🍜 오늘의 탐험 코스</div>
+  <div class="cc v" onclick="showP('galbi')">
+    <div class="ci"><div class="cim">🥩</div><div class="cn2"><div class="cty">🍜 지정 맛집 · 필수</div><div class="cna">온양 원조갈비 본점</div><div class="cnj">オニャン元祖カルビ</div><div class="cts"><span class="tag tq">✨ 퀘스트</span><span class="tag tf">갈비</span></div></div><div class="cst"><span class="sb sk">✅ 완료</span><span class="tm">+500pt</span></div></div>
+  </div>
+  <div class="cc" onclick="showP('oncheon')">
+    <div class="ci"><div class="cim">♨️</div><div class="cn2"><div class="cty">♨️ 온천 · 체험</div><div class="cna">온양온천 스파랜드</div><div class="cnj">オニャン温泉スパランド</div><div class="cts"><span class="tag tq">✨ 퀘스트</span><span class="tag th">체험</span></div></div><div class="cst"><span class="sb sn">🔴 지금 여기!</span><span class="tm" id="t2">4:32</span></div></div>
+    <div style="padding:0 14px 14px"><div style="height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden"><div id="tf2" style="height:100%;width:60%;background:linear-gradient(90deg,var(--jade),var(--jade-l));border-radius:4px;transition:width .5s"></div></div><div style="font-size:11px;color:rgba(244,232,193,.35);margin-top:4px">5분 체류 필요 · 残り4:32</div></div>
+  </div>
+  <div class="cc" onclick="showP('hyun')">
+    <div class="ci"><div class="cim">🏯</div><div class="cn2"><div class="cty">🏛️ 역사 스팟</div><div class="cna">현충사 (이순신 장군)</div><div class="cnj">顕忠祠</div><div class="cts"><span class="tag th">역사</span><span class="tag tq">🗿 석판</span></div></div><div class="cst"><span class="sb sd2">다음 목적지</span></div></div>
+  </div>
+
+  <!-- 이동수단 -->
+  <div class="tb">
+    <button class="trb on" onclick="setTr(this)">🚌 버스</button>
+    <button class="trb" onclick="setTr(this)">🚇 지하철</button>
+    <button class="trb" onclick="setTr(this)">🚕 택시</button>
+    <button class="trb" onclick="setTr(this)">🚶 도보</button>
+    <button class="trb" onclick="setTr(this)">🚄 KTX</button>
+  </div>
+
+  <!-- 상품권 -->
+  <div class="vb">
+    <div class="vbr"><span class="vbi">🎫</span><span class="vbt">편의점 상품권 즉시 사용!</span></div>
+    <div class="vbn">5,000pt → 자동 지급 · 한국 내 즉시 사용</div>
+    <div class="vbs"><span class="vbsh">🏪 GS25 <span class="ib">즉시</span></span><span class="vbsh">🏪 CU <span class="ib">즉시</span></span><span class="vbsh">🎪 지역상품권 <span class="ib">즉시</span></span></div>
+  </div>
+
+  <!-- SNS -->
+  <div class="snb">
+    <div class="snt">친구 <strong>2명에게 공유</strong>하면 파편 +1개! 🧩</div>
+    <div class="snbs"><button class="snbtn sl" onclick="shareApp('line')">💬</button><button class="snbtn sx" onclick="shareApp('x')" style="color:#eee">✕</button><button class="snbtn si2" onclick="shareApp('insta')">📸</button></div>
+  </div>
+  <div class="spc3"></div>
+
   <nav class="nav">
     <button class="nb on" onclick="go('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>보물지도</button>
     <button class="nb" onclick="go('inv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>인벤토리</button>
@@ -486,37 +535,25 @@ body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch)
 
 <!-- INVENTORY -->
 <div id="inv" class="screen">
-  <div class="ph"><button class="bk" onclick="go('map')">←</button><h2>📦 나의 인벤토리</h2><span style="margin-left:auto;font-size:9px;color:var(--jade-l)">자산 추정 ₩28,000</span></div>
-  <div style="overflow-y:auto;flex:1;padding-bottom:80px">
-    <div class="is"><div class="ip">3,200</div><div class="il">탐험 포인트 · あと1,800ptで商品券!</div><div class="ib2"><div class="if"></div></div><div class="in">5,000pt → 편의점 상품권 5,000원 🎫</div></div>
-    <div class="ib3">
-      <div class="eb" onclick="openOv('exov')"><div class="ei">🎫</div><div class="en">확정 교환</div><div class="ev">5,000원 확정</div></div>
-      <div class="eb" onclick="trySummon('sanshin')"><div class="ei">✨</div><div class="en">신령 소환!</div><div class="ev">3,000~8,000원?</div></div>
-    </div>
-    <div class="ct">
-      <div class="cth"><span class="ctt">📦 보물상자 현황</span><span style="font-size:9px;color:rgba(244,232,193,.32)">2개 보유</span></div>
-      <div class="cti">
-        <div class="ctit"><span class="ctic">🧳</span><div class="ctii"><div class="ctil">📍 태안 만리포 해변 숨김</div><div class="ctis safe">🔒 안전 · まだ誰も解かず</div></div></div>
-        <div class="cttm" id="ct1">47:22:15</div>
-        <div class="ctp"><div class="ctf ctfg" style="width:66%"></div></div>
-        <div class="cta">🔑 2명 도전 중 · 18분 전 마지막 시도</div>
-      </div>
-      <div class="cti">
-        <div class="ctit"><span class="ctic">📦</span><div class="ctii"><div class="ctil">📍 현충사 주차장 근처</div><div class="ctis danger">⚠️ 위험! 5시간 남음</div></div></div>
-        <div class="cttm urg" id="ct2">05:14:33</div>
-        <div class="ctp"><div class="ctf ctfr" style="width:9%"></div></div>
-        <div class="cta">🔑 7명 도전 · 아직 아무도 못 풀었어요!</div>
-      </div>
-    </div>
-    <div class="cs"><div class="stl">🃏 보유 카드</div></div>
-    <div class="cg">
-      <div class="icd"><div class="icdi frag">🧩</div><div class="icq">×3</div><div class="icdb"><div class="icdb-n">마을 보물 파편</div><div class="icdb-t">아산 지역</div></div></div>
-      <div class="icd"><div class="icdi tabl">🗿</div><div class="icq">×1</div><div class="icdb"><div class="icdb-n">비밀지도 석판</div><div class="icdb-t">5조각 중 2/5</div></div></div>
-      <div class="icd"><div class="icdi hist">🏆</div><div class="icq">×1</div><div class="icdb"><div class="icdb-n">경주 역사카드</div><div class="icdb-t">한정판</div></div></div>
-      <div class="icd" style="border-style:dashed;opacity:.3"><div class="icdi hist" style="background:rgba(255,255,255,.02)">❓</div><div class="icdb"><div class="icdb-n">??? 잠금</div><div class="icdb-t">더 탐험하기</div></div></div>
-    </div>
-    <div class="spc3"></div>
+  <div class="ph"><button class="bk" onclick="go('map')">←</button><h2>📦 나의 인벤토리</h2><span style="margin-left:auto;font-size:12px;color:var(--jade-l);font-weight:700">자산 ₩28,000</span></div>
+  <div class="is"><div class="ip">3,200</div><div class="il">탐험 포인트 · あと1,800ptで商品券!</div><div class="ib2"><div class="if2"></div></div><div class="in">🎯 5,000pt → 편의점 상품권 5,000원!</div></div>
+  <div class="ib3">
+    <div class="eb" onclick="openOv('exov')"><div class="ei">🎫</div><div class="en">확정 교환</div><div class="ev">5,000원 확정</div></div>
+    <div class="eb" onclick="trySummon('sanshin')"><div class="ei">✨</div><div class="en">신령 소환!</div><div class="ev">3천~8천원?</div></div>
   </div>
+  <div class="ct">
+    <div class="cth"><span class="ctt">📦 보물상자 현황</span><span style="font-size:12px;color:rgba(244,232,193,.35)">2개</span></div>
+    <div class="cti"><div class="ctit"><span class="ctic">🧳</span><div class="ctii"><div class="ctil">📍 태안 만리포 해변</div><div class="ctis safe">🔒 안전</div></div></div><div class="cttm" id="ct1">47:22:15</div><div class="ctp"><div class="ctf ctfg" style="width:66%"></div></div><div class="cta">🔑 2명 도전 중</div></div>
+    <div class="cti"><div class="ctit"><span class="ctic">📦</span><div class="ctii"><div class="ctil">📍 현충사 주차장</div><div class="ctis danger">⚠️ 위험! 5시간 남음!</div></div></div><div class="cttm urg" id="ct2">05:14:33</div><div class="ctp"><div class="ctf ctfr" style="width:9%"></div></div><div class="cta">🔑 7명 도전 · 아직 아무도 못 풀었어요!</div></div>
+  </div>
+  <div class="stl">🃏 보유 카드</div>
+  <div class="cg">
+    <div class="icd"><div class="icdi frag">🧩</div><div class="icq">×3</div><div class="icdb"><div class="icdb-n">마을 보물 파편</div><div class="icdb-t">아산 지역</div></div></div>
+    <div class="icd"><div class="icdi tabl">🗿</div><div class="icq">×1</div><div class="icdb"><div class="icdb-n">비밀지도 석판</div><div class="icdb-t">5조각 중 2/5</div></div></div>
+    <div class="icd"><div class="icdi hist">🏆</div><div class="icq">×1</div><div class="icdb"><div class="icdb-n">경주 역사카드</div><div class="icdb-t">한정판</div></div></div>
+    <div class="icd" style="border-style:dashed;opacity:.3"><div class="icdi hist" style="background:rgba(255,255,255,.02)">❓</div><div class="icdb"><div class="icdb-n">??? 잠금</div><div class="icdb-t">더 탐험하기</div></div></div>
+  </div>
+  <div class="spc3"></div>
   <nav class="nav">
     <button class="nb" onclick="go('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>보물지도</button>
     <button class="nb on" onclick="go('inv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>인벤토리</button>
@@ -525,21 +562,19 @@ body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch)
   </nav>
 </div>
 
-<!-- SHINRYEONG -->
+<!-- SHIN -->
 <div id="shin" class="screen">
   <div class="ph"><button class="bk" onclick="go('map')">←</button><h2>✨ 신령 소환</h2></div>
-  <div style="overflow-y:auto;flex:1;padding-bottom:80px">
-    <div class="shi"><h2>고대의 신령을 소환하세요</h2><p>5,000 포인트 달성 시 신령을 불러낼 수 있어요.<br>신령마다 다른 확률! 확률은 투명하게 공개.<br>5000ポイントで神霊を召喚！無料ポイントのみ使用。</p></div>
-    <div class="cpd"><div class="cpb">3,200</div><div class="cpn">5,000pt까지 <strong style="color:var(--gold)">1,800pt</strong> 남음</div><div style="height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:9px"><div style="height:100%;width:64%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:3px"></div></div></div>
-    <div class="sg">
-      <div class="spc2 ss3" onclick="trySummon('sanshin')"><span class="se2">👴</span><div class="sn2">산신령</div><div class="snj">山の神</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">15%</span></div><div class="rr"><span>✨ 상</span><span class="rh">20%</span></div><div class="rr"><span>💎 중</span><span class="rm">35%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
-      <div class="spc2 sd3" onclick="trySummon('dokkaebi')"><span class="se2">👹</span><div class="sn2">도깨비</div><div class="snj">トッケビ</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">8%</span></div><div class="rr"><span>✨ 상</span><span class="rh">18%</span></div><div class="rr"><span>💎 중</span><span class="rm">40%</span></div><div class="rr"><span>🧩 소</span><span class="rl">34%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
-      <div class="spc2 sg3" onclick="trySummon('gumiho')"><span class="se2">🦊</span><div class="sn2">구미호</div><div class="snj">九尾の狐</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">6%</span></div><div class="rr"><span>💄 K뷰티</span><span class="rh">32%</span></div><div class="rr"><span>💎 중</span><span class="rm">32%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
-      <div class="spc2 sj3" onclick="trySummon('jangseung')"><span class="se2">🗿</span><div class="sn2">장승</div><div class="snj">チャンスン</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">5%</span></div><div class="rr"><span>🛍 특산품</span><span class="rh">30%</span></div><div class="rr"><span>🎪 체험권</span><span class="rm">35%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
-    </div>
-    <div style="margin:0 15px 13px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px"><div style="font-size:10px;color:rgba(244,232,193,.42);line-height:1.7">⚠️ <strong style="color:var(--gold-l)">확률 공개 안내</strong><br>포인트는 무료로 획득되며 현금 베팅이 없는 보상 게임입니다. 하루 최대 2회 소환 가능. B2B 선구매 상품권 배포 방식으로 법적 안전.</div></div>
-    <div class="spc3"></div>
+  <div class="shi"><h2>고대의 신령을 소환하세요!</h2><p>5,000pt 달성 → 신령 소환 → 보물 선물!<br>神霊を召喚してプレゼントをもらおう！</p></div>
+  <div class="cpd"><div class="cpb">3,200</div><div class="cpn">5,000pt까지 <strong style="color:var(--gold)">1,800pt</strong> 남음</div><div style="height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:10px"><div style="height:100%;width:64%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:4px"></div></div></div>
+  <div class="sg">
+    <div class="spc2 ss3" onclick="trySummon('sanshin')"><span class="se2">👴</span><div class="sn2">산신령</div><div class="snj">山の神</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">15%</span></div><div class="rr"><span>✨ 상</span><span class="rh">20%</span></div><div class="rr"><span>💎 중</span><span class="rm">35%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
+    <div class="spc2 sd3" onclick="trySummon('dokkaebi')"><span class="se2">👹</span><div class="sn2">도깨비</div><div class="snj">トッケビ</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">8%</span></div><div class="rr"><span>✨ 상</span><span class="rh">18%</span></div><div class="rr"><span>💎 중</span><span class="rm">40%</span></div><div class="rr"><span>🧩 소</span><span class="rl">34%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
+    <div class="spc2 sg3" onclick="trySummon('gumiho')"><span class="se2">🦊</span><div class="sn2">구미호</div><div class="snj">九尾の狐</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">6%</span></div><div class="rr"><span>💄 K뷰티</span><span class="rh">32%</span></div><div class="rr"><span>💎 중</span><span class="rm">32%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
+    <div class="spc2 sj3" onclick="trySummon('jangseung')"><span class="se2">🗿</span><div class="sn2">장승</div><div class="snj">チャンスン</div><div class="sr"><div class="rr"><span>🌟 대박</span><span class="rj">5%</span></div><div class="rr"><span>🛍 특산품</span><span class="rh">30%</span></div><div class="rr"><span>🎪 체험권</span><span class="rm">35%</span></div><div class="rr"><span>🧩 소</span><span class="rl">30%</span></div></div><span class="srq lck">🔒 1,800pt 부족</span></div>
   </div>
+  <div style="margin:0 16px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px"><div style="font-size:var(--fs-sm);color:rgba(244,232,193,.45);line-height:1.7">⚠️ <strong style="color:var(--gold-l)">확률 공개</strong> — 포인트는 무료 획득, 현금 베팅 없음. 하루 최대 2회.</div></div>
+  <div class="spc3"></div>
   <nav class="nav">
     <button class="nb" onclick="go('map')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>보물지도</button>
     <button class="nb" onclick="go('inv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>인벤토리</button>
@@ -548,125 +583,160 @@ body{font-family:'Noto Sans JP',sans-serif;background:#0D0805;color:var(--parch)
   </nav>
 </div>
 
-<!-- SUMMON OVERLAY -->
+<!-- 전체화면 지도 -->
+<div class="fs-map" id="fsMap">
+  <div class="fs-header">
+    <button class="fs-close" onclick="closeFS()">✕</button>
+    <span style="font-family:'Noto Serif KR',serif;font-size:17px;color:var(--gold);font-weight:700">🗺️ 보물지도 전체보기</span>
+    <button style="margin-left:auto;background:rgba(76,175,128,.2);border:2px solid var(--jade);color:var(--jade-l);padding:10px 16px;border-radius:12px;font-size:14px;cursor:pointer;min-height:44px" onclick="myLocFS()">📍 내 위치</button>
+  </div>
+  <div id="gmap-fs" style="flex:1"></div>
+</div>
+
+<!-- 소환 -->
 <div id="so"><div class="soe" id="soe">👴</div><div class="sol"><div class="sol-l">탐험을 열심히 했구나!</div><div class="sol-l">이것을 받아라!</div><div class="sol-l" id="son">— 산신령 —</div></div>
-<div class="sor"><span class="sore" id="sore">🎫</span><div class="sorn" id="sorn">편의점 상품권 5,000원</div><div class="sord" id="sord">GS25·CU·세븐일레븐 즉시 사용\nQR코드를 계산대에 보여주세요!</div><div class="sorp" id="sorp">+500pt 보너스</div></div>
-<button style="margin-top:17px;background:var(--red);border:1px solid var(--gold);color:var(--gold-l);padding:10px 28px;border-radius:16px;font-size:13px;cursor:pointer;font-family:'Noto Serif KR',serif" onclick="closeSummon()">✨ 감사합니다!</button></div>
+<div class="sor"><span class="sore" id="sore">🎫</span><div class="sorn" id="sorn">편의점 상품권 5,000원</div><div class="sord" id="sord">GS25·CU 즉시 사용\nQR코드를 계산대에 보여주세요!</div><div class="sorp" id="sorp">+500pt 보너스</div></div>
+<button class="sum-close" onclick="closeSummon()">✨ 감사합니다!</button></div>
 
-<!-- RICHI OVERLAY -->
-<div class="ro" id="ro"><div class="rt" id="rt">✨ SET COMPLETE ✨</div><div class="rs" id="rs">파편 4개 완성!</div><div class="re" id="re">🎉</div></div>
+<!-- 리치 -->
+<div class="ro" id="ro"><div class="rt" id="rt">✨ COMPLETE ✨</div><div class="rs" id="rs">완성!</div><div class="re" id="re">🎉</div><button class="richi-close" onclick="closeRichi()">닫기</button></div>
 
-<!-- CASHBACK OVERLAY -->
-<div class="ov" id="cbov" onclick="closeOv('cbov')">
-  <div class="bs" onclick="event.stopPropagation()">
-    <div class="bsh"></div><div class="bst">🧾 1.5% 소비 포인트 캐시백</div><div class="bss">방문 + 결제하면 자동 포인트 적립!</div>
-    <div class="qi"><span class="qii">1️⃣</span><div class="qib"><div class="qin">카카오페이 / 네이버페이 (추천)</div><div class="qid">지정 업체에서 간편결제 시 자동 인식 → 즉시 적립</div><div class="qir">결제금액 × 1.5% 자동 지급</div></div></div>
-    <div class="qi"><span class="qii">2️⃣</span><div class="qib"><div class="qin">QR 코드 스캔 (매장 비치)</div><div class="qid">계산 후 매장 QR 스캔 → 1초 인증</div><div class="qir">500pt 고정 지급</div></div></div>
-    <div class="qi"><span class="qii">3️⃣</span><div class="qib"><div class="qin">영수증 촬영 OCR</div><div class="qid">영수증 촬영 → AI 금액 인식 + 보너스 100pt</div><div class="qir">결제금액 × 1.5% + 100pt</div></div></div>
-    <button class="bsbtn" onclick="closeOv('cbov')">알겠어요!</button>
+<!-- 퀘스트 완료 팝업 -->
+<div class="qcpop" id="qcpop">
+  <div class="qcp-box">
+    <span class="qcp-icon">🎉</span>
+    <div class="qcp-title">퀘스트 완료!</div>
+    <div class="qcp-body">온양온천 스파랜드<br>5분 체류 완료!</div>
+    <div class="qcp-pts">+500 pt 🧩×1</div>
+    <button class="qcp-btn" onclick="closeQCP()">✅ 확인!</button>
   </div>
 </div>
 
-<!-- EXCHANGE OVERLAY -->
+<!-- 퀘스트 상세 -->
+<div class="ov" id="qov" onclick="closeOv('qov')">
+  <div class="bs" onclick="event.stopPropagation()">
+    <div class="bsh"></div><div class="bst">♨️ 온양온천 퀘스트</div><div class="bss">지금 진행 중인 퀘스트예요!</div>
+    <div style="background:rgba(139,26,26,.2);border:2px solid var(--red);border-radius:14px;padding:16px;margin-bottom:14px;text-align:center">
+      <div style="font-size:22px;font-weight:900;color:#FF9999;margin-bottom:6px">⏱️ 지금 여기 계세요!</div>
+      <div style="font-size:var(--fs-mid);color:var(--parch);line-height:1.7">5분 동안 이 장소에 머물면<br>🧩 파편 1개 + 500pt 자동 지급!</div>
+    </div>
+    <div class="qi"><span class="qii">⚠️</span><div class="qib"><div class="qin">장소를 벗어나지 마세요!</div><div class="qid">자리를 떠나기 전에 완료 여부를 알림으로 알려드려요.</div></div></div>
+    <div class="qi"><span class="qii">🧾</span><div class="qib"><div class="qin">결제하면 보너스!</div><div class="qid">여기서 결제하면 금액의 1.5% 추가 포인트!</div><div class="qir">결제금액 × 1.5% pt</div></div></div>
+    <button class="bsbtn" onclick="closeOv('qov')">알겠어요! 여기 있을게요 😊</button>
+  </div>
+</div>
+
+<!-- 교환 -->
 <div class="ov" id="exov" onclick="closeOv('exov')">
   <div class="bs" onclick="event.stopPropagation()">
-    <div class="bsh"></div><div class="bst">🎫 상품권 교환</div><div class="bss">포인트를 편의점 상품권으로 교환합니다</div>
-    <div style="background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.26);border-radius:10px;padding:14px;margin-bottom:12px;text-align:center"><div style="font-size:11px;color:rgba(244,232,193,.46);margin-bottom:6px">사용 포인트</div><div style="font-size:32px;font-weight:900;color:var(--gold)">5,000 pt</div><div style="font-size:18px;color:var(--parch);margin-top:6px">→ 편의점 상품권 5,000원</div></div>
-    <div class="mga">
-      <div class="mgt">🎰 긁어서 보너스 확인! (선택)</div>
-      <div class="scrcard" id="scard2" onclick="doScratch()"><div class="scrc" id="scrc">👆 긁어보세요!</div><div class="mul" id="mull">×1.5</div></div>
-      <div style="font-size:9px;color:rgba(244,232,193,.32);text-align:center;margin-top:6px">긁지 않으면 5,000원 확정 · 긁으면 3,000~8,000원 랜덤</div>
-    </div>
+    <div class="bsh"></div><div class="bst">🎫 상품권 교환</div><div class="bss">포인트를 상품권으로 바꿔요!</div>
+    <div style="background:rgba(212,175,55,.08);border:2px solid rgba(212,175,55,.3);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center"><div style="font-size:40px;font-weight:900;color:var(--gold)">5,000 pt</div><div style="font-size:22px;color:var(--parch);margin-top:8px">→ 편의점 상품권 5,000원</div></div>
+    <div class="mga"><div class="mgt">🎰 긁어서 보너스 확인! (선택)</div><div class="scrcard" id="scard2" onclick="doScratch()"><div class="scrc" id="scrc">👆 긁어보세요!</div><div class="mul" id="mull">×1.5</div></div><div style="font-size:var(--fs-sm);color:rgba(244,232,193,.35);text-align:center;margin-top:8px">긁지 않으면 5,000원 확정</div></div>
     <button class="bsbtn" onclick="doExchange()">✅ 5,000원 확정 교환</button>
-    <button class="bsbtn bsbtn2" style="margin-top:7px" onclick="closeOv('exov')">취소</button>
+    <button class="bsbtn bsbtn2" style="margin-top:8px" onclick="closeOv('exov')">취소</button>
   </div>
 </div>
 
-<!-- PLACE DETAIL -->
+<!-- 장소 상세 -->
 <div id="pd" onclick="closePD()"><div class="pds" onclick="event.stopPropagation()" id="pdc"></div></div>
 
-<!-- TOAST -->
+<!-- 토스트 -->
 <div class="toast" id="toast"></div>
 
 <script>
 const GKEY='AIzaSyA5k1qJQiUs1ny320Jcr3GIYFQg92HUywQ';
 const TKEY='af46ca951ea87772ed45aad2c8bd5f2de22f486735ce6befc1ec011745521a80';
-let gmOk=false;
+let gmOk=false,gmMain=null,gmFS=null;
 
-// PARTICLES
-(function(){const w=document.getElementById('ptcl');if(!w)return;for(let i=0;i<16;i++){const d=document.createElement('div');d.className='pt';d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*6}s;animation-duration:${5+Math.random()*4}s`;w.appendChild(d);}})();
-
-// STAMPS
+// 스탬프
 (function(){const c=document.getElementById('stamps');if(!c)return;[1,1,1,1,0,0,0,0,0,0].forEach((f,i)=>{const d=document.createElement('div');d.className='dot';if(f){d.classList.add(i===6?'g':'f');d.textContent=i===6?'⭐':'✓';}else if(i===4)d.classList.add('bl');c.appendChild(d);});})();
 
-// NAV
 function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const t=document.getElementById(id);if(t)t.classList.add('active');if(id==='map')loadGMaps();}
-function sel(el){el.closest('.og').querySelectorAll('.ob').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');const n=el.closest('.qc').nextElementSibling;if(n&&n.classList.contains('qc'))setTimeout(()=>{n.classList.add('act');n.scrollIntoView({behavior:'smooth',block:'nearest'});},300);}
+
+function sel(el){el.closest('.og').querySelectorAll('.ob').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');const next=el.closest('.qc').nextElementSibling;if(next&&next.classList.contains('qc'))setTimeout(()=>{next.classList.add('act');next.scrollIntoView({behavior:'smooth',block:'start'});},350);}
+
+function multiSel(el){el.classList.toggle('sel');}
+
+const recTexts={
+  seoul:'서울에서 <strong style="color:var(--gold-l)">KTX로 54분</strong>! 아직 발견되지 않은 보물이 넘치는 <strong style="color:var(--jade-l)">아산·태안</strong>은 어때요?<br>지금 <strong style="color:var(--gold-l)">28명</strong>이 보물을 찾고 있어요 🗺️<br><br>📌 서울 2일 + 보물투어 2일 코스 추천!',
+  busan:'부산에서 <strong style="color:var(--gold-l)">기차로 1시간</strong>! <strong style="color:var(--jade-l)">울산·속초</strong>에는 아직 아무도 열지 못한 보물상자가 기다리고 있어요!<br>지금 <strong style="color:var(--gold-l)">21명</strong> 탐험 중 🔥<br><br>📌 부산 1일 + 보물투어 2일 코스 추천!'
+};
+
+function selCity(el,city){
+  el.closest('.og').querySelectorAll('.ob').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  const banner=document.getElementById('recBanner');
+  if(city!=='none'){document.getElementById('recText').innerHTML=recTexts[city]||recTexts.seoul;banner.classList.add('show');}
+  else banner.classList.remove('show');
+  const next=el.closest('.qc').nextElementSibling;
+  if(next&&next.classList.contains('qc'))setTimeout(()=>{next.classList.add('act');next.scrollIntoView({behavior:'smooth',block:'start'});},450);
+}
+
+function selR(el){document.querySelectorAll('.city-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');const next=el.closest('.qc').nextElementSibling;if(next&&next.classList.contains('qc'))setTimeout(()=>{next.classList.add('act');next.scrollIntoView({behavior:'smooth',block:'start'});},400);}
+
 function startAdv(){showRichi('🗺️ 보물지도 생성!','나만의 코스가 완성됐어요!','🎉');setTimeout(()=>{closeRichi();go('map');},2600);}
 
-// MAPS
+// 구글맵
 function loadGMaps(){if(gmOk)return;gmOk=true;const s=document.createElement('script');s.src=`https://maps.googleapis.com/maps/api/js?key=${GKEY}&callback=gmReady&language=ja`;s.async=true;document.head.appendChild(s);}
+function getDS(){return[{elementType:'geometry',stylers:[{color:'#1a0f05'}]},{elementType:'labels.text.stroke',stylers:[{color:'#0d0805'}]},{elementType:'labels.text.fill',stylers:[{color:'#D4AF37'}]},{featureType:'road',elementType:'geometry',stylers:[{color:'#2a1a0a'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#1A3A5C'}]},{featureType:'poi',stylers:[{visibility:'off'}]}];}
+function addPins(map){[{lat:36.788,lng:127.004,l:'🥩',t:'온양원조갈비'},{lat:36.795,lng:127.010,l:'♨️',t:'온양온천'},{lat:36.792,lng:127.013,l:'🏯',t:'현충사'},{lat:36.724,lng:126.299,l:'🏰',t:'안흥성'}].forEach(p=>new google.maps.Marker({position:{lat:p.lat,lng:p.lng},map,label:{text:p.l,fontSize:'22px'},title:p.t}));}
 window.gmReady=function(){
   const el=document.getElementById('gmap');if(!el)return;
   const ld=document.getElementById('mld');if(ld)ld.style.display='none';
-  const ds=[{elementType:'geometry',stylers:[{color:'#1a0f05'}]},{elementType:'labels.text.stroke',stylers:[{color:'#0d0805'}]},{elementType:'labels.text.fill',stylers:[{color:'#D4AF37'}]},{featureType:'road',elementType:'geometry',stylers:[{color:'#2a1a0a'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#1A3A5C'}]},{featureType:'poi',stylers:[{visibility:'off'}]}];
-  const m=new google.maps.Map(el,{center:{lat:36.8,lng:127.0},zoom:10,styles:ds,mapTypeControl:false,streetViewControl:false,fullscreenControl:false,zoomControl:false,gestureHandling:'greedy'});
-  window._gm=m;
-  [{lat:36.788,lng:127.004,l:'🥩',t:'온양원조갈비'},{lat:36.795,lng:127.010,l:'♨️',t:'온양온천'},{lat:36.792,lng:127.013,l:'🏯',t:'현충사'},{lat:36.724,lng:126.299,l:'🏰',t:'안흥성'}].forEach(p=>new google.maps.Marker({position:{lat:p.lat,lng:p.lng},map:m,label:{text:p.l,fontSize:'19px'},title:p.t}));
-  fetchTour(m);
+  gmMain=new google.maps.Map(el,{center:{lat:36.8,lng:127.0},zoom:10,styles:getDS(),mapTypeControl:false,streetViewControl:false,fullscreenControl:false,zoomControl:false,gestureHandling:'greedy'});
+  addPins(gmMain);fetchTour(gmMain);
 };
-async function fetchTour(m){
-  try{const r=await fetch(`https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${TKEY}&contentTypeId=82&areaCode=9&numOfRows=8&MobileOS=ETC&MobileApp=KTM&_type=json`);if(!r.ok)throw new Error();const d=await r.json();const items=d?.response?.body?.items?.item||[];items.forEach(it=>{if(it.mapx&&it.mapy&&m)new google.maps.Marker({position:{lat:parseFloat(it.mapy),lng:parseFloat(it.mapx)},map:m,title:it.title,label:{text:'🍜',fontSize:'14px'}});});if(items.length)toast('🍜 TourAPI 맛집 '+items.length+'개 로드!');}catch(e){console.info('TourAPI:',e.message);}
-}
-function initMini(lat,lng){const el=document.getElementById('mgmap');if(!el||!window.google)return;const ds=[{elementType:'geometry',stylers:[{color:'#1a0f05'}]},{elementType:'labels.text.fill',stylers:[{color:'#D4AF37'}]},{featureType:'road',elementType:'geometry',stylers:[{color:'#2a1a0a'}]},{featureType:'water',stylers:[{color:'#1A3A5C'}]}];const m=new google.maps.Map(el,{center:{lat,lng},zoom:15,styles:ds,mapTypeControl:false,streetViewControl:false,fullscreenControl:false,zoomControl:false});new google.maps.Marker({position:{lat,lng},map:m,label:{text:'📍',fontSize:'20px'}});}
+async function fetchTour(map){try{const r=await fetch(`https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${TKEY}&contentTypeId=82&areaCode=9&numOfRows=8&MobileOS=ETC&MobileApp=KTM&_type=json`);if(!r.ok)throw new Error();const d=await r.json();const items=d?.response?.body?.items?.item||[];items.forEach(it=>{if(it.mapx&&it.mapy)new google.maps.Marker({position:{lat:parseFloat(it.mapy),lng:parseFloat(it.mapx)},map,title:it.title,label:{text:'🍜',fontSize:'16px'}});});if(items.length)toast('🍜 TourAPI 맛집 '+items.length+'개!');}catch(e){}}
 
-// PLACE DATA
-const PD={galbi:{e:'🥩',n:'온양 원조갈비 본점',j:'オニャン元祖カルビ',d:'1972년부터 이어온 아산 대표 갈비 맛집. 충남 최고의 고기 명소!',h:'11:00~22:00',p:'041-542-XXXX',lat:36.788,lng:127.004,ty:'🍜 지정 맛집',tr:[{m:'🚌',t:'5분',d:'온양온천역 도보'},{m:'🚕',t:'3분',d:'택시 ₩4,000'},{m:'🚇',t:'15분',d:'온양온천역'}]},oncheon:{e:'♨️',n:'온양온천 스파랜드',j:'オニャン温泉スパランド',d:'2,000년 역사의 온천! 조선 왕실 온천지. 천연 알칼리 온천.',h:'06:00~22:00',p:'041-544-XXXX',lat:36.795,lng:127.010,ty:'♨️ 온천 체험',tr:[{m:'🚌',t:'10분',d:'온양온천역 버스'},{m:'🚕',t:'5분',d:'택시 ₩5,000'},{m:'🚶',t:'15분',d:'도보'}]},hyun:{e:'🏯',n:'현충사 (이순신 장군)',j:'顕忠祠',d:'조선 최고의 명장 이순신 장군의 사당. TourAPI 연동 역사 스팟.',h:'09:00~18:00',p:'041-539-XXXX',lat:36.792,lng:127.013,ty:'🏛️ 역사 스팟',tr:[{m:'🚌',t:'25분',d:'아산시 버스'},{m:'🚕',t:'12분',d:'택시 ₩12,000'},{m:'🚶',t:'65분',d:'건강 도보'}]},drama:{e:'🎬',n:'킹덤 촬영지 (외암민속마을)',j:'キングダム撮影地',d:'넷플릭스 킹덤 촬영지! 조선 민속마을 그대로 보존.',h:'09:00~18:00',p:'041-541-XXXX',lat:36.745,lng:127.000,ty:'🎬 드라마 촬영지',tr:[{m:'🚌',t:'30분',d:'아산→외암리'},{m:'🚕',t:'18분',d:'택시 ₩15,000'},{m:'🚄',t:'40분',d:'아산역 이동'}]}};
+function goMyLoc(){if(!navigator.geolocation){toast('위치 정보 사용 불가');return;}navigator.geolocation.getCurrentPosition(pos=>{const ll={lat:pos.coords.latitude,lng:pos.coords.longitude};if(gmMain){gmMain.setCenter(ll);gmMain.setZoom(15);new google.maps.Marker({position:ll,map:gmMain,label:{text:'🔵',fontSize:'22px'},title:'내 위치'});}toast('📍 내 위치로 이동!');},()=>toast('위치 접근이 거부됐어요'));}
 
-function showP(id){const p=PD[id];if(!p)return;document.getElementById('pdc').innerHTML=`<div style="width:36px;height:4px;background:rgba(212,175,55,.24);border-radius:2px;margin:0 auto 16px"></div><div class="phe"><span style="font-size:50px">${p.e}</span><span class="phb">${p.ty}</span></div><div class="pn">${p.n}</div><div class="pnj">${p.j}</div><div class="pd2">${p.d}</div><div class="ir"><span class="ii">🕐</span><div><div class="ilab">영업시간</div><div class="ival">${p.h}</div></div></div><div class="ir"><span class="ii">📞</span><div><div class="ilab">전화</div><div class="ival">${p.p}</div></div></div><div class="mm"><div id="mgmap" style="width:100%;height:125px"></div></div><div style="font-family:'Noto Serif KR',serif;font-size:12px;color:var(--gold);font-weight:700;margin:10px 0 7px">🚌 이동 방법</div><div class="to">${p.tr.map(t=>`<div class="tob"><div class="tom">${t.m}</div><div class="tot">${t.t}</div><div class="tod">${t.d}</div></div>`).join('')}</div><button class="bsbtn" style="margin-top:14px" onclick="closePD()">✅ 닫기</button>`;document.getElementById('pd').classList.add('on');setTimeout(()=>initMini(p.lat,p.lng),200);}
+function openFS(){document.getElementById('fsMap').classList.add('show');if(!gmFS&&window.google){const el=document.getElementById('gmap-fs');gmFS=new google.maps.Map(el,{center:{lat:36.8,lng:127.0},zoom:10,styles:getDS(),mapTypeControl:false,streetViewControl:true,fullscreenControl:false,zoomControl:true,gestureHandling:'greedy'});addPins(gmFS);fetchTour(gmFS);}}
+function closeFS(){document.getElementById('fsMap').classList.remove('show');}
+function myLocFS(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(pos=>{const ll={lat:pos.coords.latitude,lng:pos.coords.longitude};if(gmFS){gmFS.setCenter(ll);gmFS.setZoom(16);new google.maps.Marker({position:ll,map:gmFS,label:{text:'🔵',fontSize:'24px'},title:'내 위치'});}});}
+
+function initMini(lat,lng){const el=document.getElementById('mgmap');if(!el||!window.google)return;const m=new google.maps.Map(el,{center:{lat,lng},zoom:15,styles:getDS(),mapTypeControl:false,streetViewControl:false,fullscreenControl:false,zoomControl:false});new google.maps.Marker({position:{lat,lng},map:m,label:{text:'📍',fontSize:'22px'}});}
+
+const PD={galbi:{e:'🥩',n:'온양 원조갈비 본점',j:'オニャン元祖カルビ',d:'1972년부터 이어온 아산 대표 갈비 맛집. 충남 최고의 고기 명소!',h:'11:00~22:00',p:'041-542-XXXX',lat:36.788,lng:127.004,ty:'🍜 지정 맛집',tr:[{m:'🚌',t:'5분',d:'온양온천역 도보'},{m:'🚕',t:'3분',d:'택시 ₩4,000'},{m:'🚇',t:'15분',d:'온양온천역'}]},oncheon:{e:'♨️',n:'온양온천 스파랜드',j:'オニャン温泉スパランド',d:'2,000년 역사의 온천! 조선 왕실 온천지. 천연 알칼리 온천.',h:'06:00~22:00',p:'041-544-XXXX',lat:36.795,lng:127.010,ty:'♨️ 온천 체험',tr:[{m:'🚌',t:'10분',d:'온양온천역 버스'},{m:'🚕',t:'5분',d:'택시 ₩5,000'},{m:'🚶',t:'15분',d:'도보'}]},hyun:{e:'🏯',n:'현충사 (이순신 장군)',j:'顕忠祠',d:'조선 최고의 명장 이순신 장군의 사당. TourAPI 연동 역사 스팟.',h:'09:00~18:00',p:'041-539-XXXX',lat:36.792,lng:127.013,ty:'🏛️ 역사 스팟',tr:[{m:'🚌',t:'25분',d:'아산시 버스'},{m:'🚕',t:'12분',d:'택시 ₩12,000'},{m:'🚶',t:'65분',d:'건강 도보'}]}};
+function showP(id){const p=PD[id];if(!p)return;document.getElementById('pdc').innerHTML=`<div style="width:44px;height:5px;background:rgba(212,175,55,.25);border-radius:3px;margin:0 auto 18px"></div><div class="phe"><span style="font-size:56px">${p.e}</span><span class="phb">${p.ty}</span></div><div class="pn">${p.n}</div><div class="pnj">${p.j}</div><div class="pd2">${p.d}</div><div class="ir"><span class="ii">🕐</span><div><div class="ilab">영업시간</div><div class="ival">${p.h}</div></div></div><div class="ir"><span class="ii">📞</span><div><div class="ilab">전화</div><div class="ival">${p.p}</div></div></div><div class="mm"><div id="mgmap" style="width:100%;height:140px"></div></div><div style="font-family:'Noto Serif KR',serif;font-size:16px;color:var(--gold);font-weight:700;margin:12px 0 8px">🚌 이동 방법</div><div class="to">${p.tr.map(t=>`<div class="tob"><div class="tom">${t.m}</div><div class="tot">${t.t}</div><div class="tod">${t.d}</div></div>`).join('')}</div><button class="bsbtn" style="margin-top:16px" onclick="closePD()">✅ 닫기</button>`;document.getElementById('pd').classList.add('on');setTimeout(()=>initMini(p.lat,p.lng),200);}
 function closePD(){document.getElementById('pd').classList.remove('on');}
 
-// OVERLAYS
 function openOv(id){document.getElementById(id).classList.add('on');}
 function closeOv(id){document.getElementById(id).classList.remove('on');}
-
-// TRANSPORT
 function setTr(el){document.querySelectorAll('.trb').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
 
-// SEASON
-const SD={spring:{e:'🌸',t:'경주·전주 벚꽃 역사 코스',d:'경주 불국사, 전주 한옥마을, 진해 군항제',tags:['경주','전주','벚꽃']},summer:{e:'☀️',t:'동해·남해 여름 해안 코스',d:'강릉 경포대, 속초 해수욕장, 거제도 해금강',tags:['동해','남해','해수욕']},autumn:{e:'🍂',t:'설악·내장산 단풍 트레킹',d:'설악산, 내장산 홍엽, 남이섬 은행길',tags:['설악산','내장산','단풍']},winter:{e:'❄️',t:'강원도 스키·온천 겨울 코스',d:'용평 스키장, 하이원, 강릉 안목해변',tags:['강원도','스키','온천']}};
-function setSeason(el,s){document.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));el.classList.add('on');const d=SD[s];document.getElementById('scard').innerHTML=`<span class="se">${d.e}</span><div class="si"><h4>${d.t}</h4><p>${d.d}</p>${d.tags.map(t=>`<span class="sta">${t}</span>`).join('')}</div>`;}
-
-// SUMMON
 const SP={sanshin:{e:'👴',n:'산신령'},dokkaebi:{e:'👹',n:'도깨비'},gumiho:{e:'🦊',n:'구미호'},jangseung:{e:'🗿',n:'장승'}};
-const RW=[{e:'🎫',n:'편의점 상품권 5,000원',d:'GS25·CU·세븐일레븐 즉시 사용\nQR코드를 계산대에 보여주세요!',p:500},{e:'🧩',n:'마을 보물 파편 ×3',d:'세트 완성에 한발짝!\n아산 지역 파편 수집 중',p:300},{e:'🛍️',n:'지역 특산품 쿠폰 10,000원',d:'온양 지역 특산품 교환\n업체 방문 시 QR 제시',p:1000},{e:'🎪',n:'전통문화 체험 쿠폰',d:'외암민속마을 체험 프로그램\n사전 예약 후 방문',p:800},{e:'💄',n:'K-뷰티 쇼핑 할인권',d:'면세점 및 로드숍 10% 할인\n한국 체류 중 사용',p:200}];
-function trySummon(type){const sp=SP[type]||SP.sanshin;const rw=RW[Math.floor(Math.random()*RW.length)];document.getElementById('soe').textContent=sp.e;document.getElementById('son').textContent='— '+sp.n+' —';document.getElementById('sore').textContent=rw.e;document.getElementById('sorn').textContent=rw.n;document.getElementById('sord').textContent=rw.d;document.getElementById('sorp').textContent='+'+rw.p+'pt 보너스';document.getElementById('so').classList.add('on');}
-function closeSummon(){document.getElementById('so').classList.remove('on');toast('🎉 아이템을 인벤토리에 저장했습니다!');}
-
-// RICHI
+const RW=[{e:'🎫',n:'편의점 상품권 5,000원',d:'GS25·CU 즉시 사용\nQR코드를 계산대에!',p:500},{e:'🧩',n:'마을 보물 파편 ×3',d:'세트 완성에 한발짝!',p:300},{e:'🛍️',n:'지역 특산품 쿠폰',d:'온양 특산품 교환',p:1000},{e:'🎪',n:'전통문화 체험권',d:'외암민속마을 체험',p:800},{e:'💄',n:'K-뷰티 할인권',d:'면세점 10% 할인',p:200}];
+function trySummon(type){const sp=SP[type]||SP.sanshin;const rw=RW[Math.floor(Math.random()*RW.length)];document.getElementById('soe').textContent=sp.e;document.getElementById('son').textContent='— '+sp.n+' —';document.getElementById('sore').textContent=rw.e;document.getElementById('sorn').textContent=rw.n;document.getElementById('sord').textContent=rw.d;document.getElementById('sorp').textContent='+'+rw.p+'pt';document.getElementById('so').classList.add('on');}
+function closeSummon(){document.getElementById('so').classList.remove('on');toast('🎉 인벤토리에 저장!');}
 function showRichi(t,s,e){document.getElementById('rt').textContent=t;document.getElementById('rs').textContent=s;document.getElementById('re').textContent=e;document.getElementById('ro').classList.add('on');}
 function closeRichi(){document.getElementById('ro').classList.remove('on');}
+function closeQCP(){document.getElementById('qcpop').classList.remove('on');toast('🧩 파편이 인벤토리에 추가됐어요!');}
+function doScratch(){const c=document.getElementById('scrc');if(!c.classList.contains('scratched')){c.classList.add('scratched');const m=[0.5,1.0,1.5,2.0,3.0],w=[10,35,30,15,10];let r=Math.random()*100,cum=0,idx=0;for(let i=0;i<w.length;i++){cum+=w[i];if(r<cum){idx=i;break;}}const v=m[idx];document.getElementById('mull').textContent='×'+v;document.getElementById('mull').style.color=v>=2?'#FFD700':v>=1?'#4CAF80':'#FF6B6B';toast(v>=2?'🎉 대박! ×'+v+'!':v>=1?'✨ ×'+v+' 획득!':'💔 아쉽게도 ×0.5');}}
+function doExchange(){closeOv('exov');showRichi('🎫 교환 완료!','5,000원 상품권 지급!','🎊');setTimeout(closeRichi,2600);}
 
-// SCRATCH
-function doScratch(){const c=document.getElementById('scrc');if(!c.classList.contains('scratched')){c.classList.add('scratched');const m=[0.5,1.0,1.5,2.0,3.0];const w=[10,35,30,15,10];let r=Math.random()*100,cum=0,idx=0;for(let i=0;i<w.length;i++){cum+=w[i];if(r<cum){idx=i;break;}}const v=m[idx];document.getElementById('mull').textContent='×'+v;document.getElementById('mull').style.color=v>=2?'#FFD700':v>=1?'#4CAF80':'#FF6B6B';toast(v>=2?'🎉 대박! ×'+v+' 당첨!':v>=1?'✨ ×'+v+' 획득!':'💔 아쉽게도 ×0.5...');}}
-function doExchange(){closeOv('exov');showRichi('🎫 교환 완료!','5,000원 상품권 지급!','🎊');setTimeout(closeRichi,2600);toast('🎫 상품권 QR코드가 발급됩니다!');}
+let qs=272;
+setInterval(()=>{
+  qs--;
+  if(qs<=0){
+    const t1=document.getElementById('timer1');if(t1)t1.textContent='✅ 완료!';
+    const t2=document.getElementById('t2');if(t2)t2.textContent='완료!';
+    const f=document.getElementById('qfill1');if(f)f.style.width='100%';
+    const f2=document.getElementById('tf2');if(f2)f2.style.width='100%';
+    setTimeout(()=>document.getElementById('qcpop').classList.add('on'),500);
+    return;
+  }
+  const m=Math.floor(qs/60),s=qs%60,ts=m+':'+String(s).padStart(2,'0');
+  const pct=(100-qs/300*100)+'%';
+  [document.getElementById('timer1'),document.getElementById('t2')].forEach(el=>{if(el)el.textContent=ts;});
+  [document.getElementById('qfill1'),document.getElementById('tf2')].forEach(el=>{if(el)el.style.width=pct;});
+},1000);
 
-// CHEST TIMERS
 let c1=47*3600+22*60+15,c2=5*3600+14*60+33;
 function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;}
 setInterval(()=>{c1=Math.max(0,c1-1);c2=Math.max(0,c2-1);const e1=document.getElementById('ct1'),e2=document.getElementById('ct2');if(e1)e1.textContent=fmt(c1);if(e2){e2.textContent=fmt(c2);if(c2<6*3600)e2.classList.add('urg');}},1000);
 
-// QUEST TIMER
-let qs=272;setInterval(()=>{qs--;if(qs<=0){toast('🎉 퀘스트 완료! 파편 획득!');showRichi('🧩 파편 획득!','온양온천 퀘스트 완료!','✨');setTimeout(closeRichi,2600);return;}const m=Math.floor(qs/60),s=qs%60;const el=document.getElementById('t1');if(el)el.textContent=m+':'+String(s).padStart(2,'0');const fl=document.getElementById('tf1');if(fl)fl.style.width=(100-qs/300*100)+'%';},1000);
-
-// TOAST
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2800);}
-
-// SNS
-function share(p){const m={line:'💬 LINE 공유!',x:'✕ X 공유!',insta:'📸 인스타 공유!'};toast(m[p]+' 친구 2명 공유 → 파편 +1! 🧩');}
-
-// LANG
-function toggleLang(){toast('🌐 言語切替中... (추후 구현)');}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
+function shareApp(p){const m={line:'💬 LINE 공유!',x:'✕ X 공유!',insta:'📸 인스타!'};toast(m[p]+' 친구 2명 → 파편 +1 🧩');}
 </script>
 </body>
 </html>
